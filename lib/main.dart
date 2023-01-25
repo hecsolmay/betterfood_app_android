@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:betterfood_app_android/screens/screens.dart';
+import 'package:betterfood_app_android/pages/screens.dart';
 
 void main() => runApp(MyApp());
 

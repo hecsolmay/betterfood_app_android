@@ -1,4 +1,4 @@
-import 'package:betterfood_app_android/screens/product_details.dart';
+import 'package:betterfood_app_android/pages/product_details.dart';
 import 'package:flutter/material.dart';
 
 class ProductsCard extends StatelessWidget {
