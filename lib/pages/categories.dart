@@ -10,10 +10,20 @@ class Categories extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Categories'),
       ),
-      body: GridView.count(
+      body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) => ProductsCard(
+                productName: "Hector $index",
+              )),
+    );
+  }
+}
+/*
+
+GridView.count(
         crossAxisSpacing: 1,
         mainAxisSpacing: 2,
-        crossAxisCount: 2,
+        crossAxisCount: 1,
         children: const [
           ProductsCard(productName: 'productName'),
           ProductsCard(productName: 'productName'),
@@ -25,6 +35,4 @@ class Categories extends StatelessWidget {
           ProductsCard(productName: 'productName'),
         ],
       ),
-    );
-  }
-}
+*/
