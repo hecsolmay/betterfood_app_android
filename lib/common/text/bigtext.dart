@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class BigText extends StatelessWidget {
   final String text;
-  double size;
-  TextOverflow overflow;
+  double? size;
+  TextOverflow? overflow;
 
   BigText({
     super.key,
