@@ -48,26 +48,62 @@ class RowContain extends StatelessWidget {
         children: [
           ImageBorder(
             image:
-                "https://cdn.pixabay.com/photo/2023/01/08/18/42/road-7705906_960_720.jpg",
+                "https://cdn.pixabay.com/photo/2014/05/05/19/52/charcuterie-338498_960_720.jpg",
           ),
           const SizedBox(width: 15),
           Expanded(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                const SizedBox(height: 10),
                 BigText(text: productName),
                 const SizedBox(height: 10),
                 Paragraph(
                     text:
-                        "assksad msdkamsdk  admaskmdk Adipisicing v Sunt sunt cillum cupidatat nulla do duis do ex incididunt exercitation."),
+                        "assksad msdkamsdk  admaskmdk Adipisicing v Sunt sunt cillum cupidatat nulla do duis do ex incididunt exercitation.",
+                    maxLines: 3),
                 const SizedBox(height: 10),
-                PriceText(text: '\$360'),
+                PriceText(text: '\$360', size: 14),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Buttons(),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(5),
+                            bottomRight: Radius.circular(5)),
+                      ),
+                      child: const Icon(Icons.add, color: Colors.white),
+                    )
+                  ],
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
+    );
+  }
+}
+
+class Buttons extends StatelessWidget {
+  const Buttons({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(Icons.remove_circle_outline, color: Colors.red),
+        const SizedBox(width: 5),
+        BigText(text: "0"),
+        const SizedBox(width: 5),
+        const Icon(Icons.add_circle, color: Colors.red),
+      ],
     );
   }
 }
@@ -77,7 +113,7 @@ class ImageBorder extends StatelessWidget {
   double? width;
   double? height;
   ImageBorder(
-      {Key? key, required this.image, this.width = 120, this.height = 150})
+      {Key? key, required this.image, this.width = 120, this.height = 160})
       : super(key: key);
 
   @override
