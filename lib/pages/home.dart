@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
         children: [
           const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 60),
             child: Column(
               children: [
                 Row(
