@@ -17,6 +17,7 @@ class BottomCard extends StatelessWidget {
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             padding:
@@ -28,7 +29,8 @@ class BottomCard extends StatelessWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  child: Icon(Icons.remove_circle_outline, color: Colors.red),
+                  child: const Icon(Icons.remove_circle_outline,
+                      color: Colors.red),
                   onTap: () => print("less click"),
                 ),
                 // const Icon(Icons.remove_circle_outline, color: Colors.red),
@@ -36,13 +38,27 @@ class BottomCard extends StatelessWidget {
                 BigText(text: "0"),
                 const SizedBox(width: 10),
                 GestureDetector(
-                  child: Icon(Icons.add_circle, color: Colors.red),
+                  child: const Icon(Icons.add_circle, color: Colors.red),
                   onTap: () => print("plus click"),
                 ),
                 // const Icon(Icons.add_circle, color: Colors.red),
               ],
             ),
           ),
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              padding:
+                  const EdgeInsets.only(top: 13, bottom: 13, left: 7, right: 7),
+              child: BigText(
+                text: "\$340.0  Agregar A la Orden",
+                color: Colors.white,
+                size: 13,
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
+            ),
+          )
         ],
       ),
     );

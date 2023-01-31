@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class BigText extends StatelessWidget {
   final String text;
+  Color? color;
   double? size;
   TextOverflow? overflow;
 
@@ -9,6 +10,7 @@ class BigText extends StatelessWidget {
     super.key,
     required this.text,
     this.size = 16,
+    this.color = Colors.black,
     this.overflow = TextOverflow.ellipsis,
   });
 
@@ -17,7 +19,8 @@ class BigText extends StatelessWidget {
     return Text(
       text,
       overflow: overflow,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: size),
+      style:
+          TextStyle(fontWeight: FontWeight.bold, fontSize: size, color: color),
     );
   }
 }
