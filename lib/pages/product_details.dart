@@ -1,21 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:betterfood_app_android/common/common.dart';
 
-class ProductDetails extends StatelessWidget {
+class ProductDetails extends StatefulWidget {
   final String productName;
-  const ProductDetails({super.key, required this.productName});
+  ProductDetails({super.key, required this.productName});
 
+  final extra = [
+    CheckBoxState(title: "Chile"),
+    CheckBoxState(title: "Guacamole"),
+    CheckBoxState(title: "Salsa Roja"),
+  ];
+
+  final remove = [
+    CheckBoxState(title: 'Cebolla'),
+    CheckBoxState(title: 'Tomate'),
+    CheckBoxState(title: 'Algo'),
+  ];
+
+  @override
+  State<ProductDetails> createState() => _ProductDetailsState();
+}
+
+class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        body: CustomScrollView(slivers: [
+      extendBodyBehindAppBar: true,
+      body: CustomScrollView(
+        slivers: [
           SliverAppBar(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                    onPressed: () {}, icon: Icon(Icons.shopping_cart_outlined))
+                    onPressed: () {},
+                    icon: const Icon(Icons.shopping_cart_outlined))
               ],
             ),
             expandedHeight: 280,
@@ -47,70 +66,48 @@ class ProductDetails extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    "Excepteur sunt commodssa Magna esse veniam enim eiusmod esse labore magna cupidatat. Qui adipisicing laboris enim eiusmod voluptate labore duis cupidatat aliquip fugiat consequat mollit consectetur occaecat. Esse tempor id et cillum eu magna mollit proident. Eu do do occaecat ex. Eu eiusmod qui incididunt Lorem tempor consectetur excepteur.Reprehenderit irure consequat amet sunt duis consequat tempor dolore aliqua consequat duis quis elit velit. Sunt laborum amet sit duis. Reprehenderit excepteur ipsum fugiat est labore. Consectetur magna aliquip deserunt tempor cillum incididunt Lorem esse nisi. Officia nulla nulla minim non eiusmod.o nostrud excepteur. Sit laborum eiusmod dolore occaecat non et. Ex ipsum ea commodo nostrud nulla velit voluptate.",
+                    "Aliqua eu culpa laboris do exercitation in duis. Duis occaecat culpa commodo commodo sunt deserunt aute occaecat anim occaecat ea. Deserunt culpa consectetur pariatur in.",
                     style: TextStyle(height: 1.5),
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Excepteur sunt commodssa Magna esse veniam enim eiusmod esse labore magna cupidatat. Qui adipisicing laboris enim eiusmod voluptate labore duis cupidatat aliquip fugiat consequat mollit consectetur occaecat. Esse tempor id et cillum eu magna mollit proident. Eu do do occaecat ex. Eu eiusmod qui incididunt Lorem tempor consectetur excepteur.Reprehenderit irure consequat amet sunt duis consequat tempor dolore aliqua consequat duis quis elit velit. Sunt laborum amet sit duis. Reprehenderit excepteur ipsum fugiat est labore. Consectetur magna aliquip deserunt tempor cillum incididunt Lorem esse nisi. Officia nulla nulla minim non eiusmod.o nostrud excepteur. Sit laborum eiusmod dolore occaecat non et. Ex ipsum ea commodo nostrud nulla velit voluptate.",
-                    style: TextStyle(height: 1.5),
+                  const SizedBox(height: 25),
+                  BigText(
+                    text: "Ingredientes Extra",
+                    size: 15,
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Excepteur sunt commodssa Magna esse veniam enim eiusmod esse labore magna cupidatat. Qui adipisicing laboris enim eiusmod voluptate labore duis cupidatat aliquip fugiat consequat mollit consectetur occaecat. Esse tempor id et cillum eu magna mollit proident. Eu do do occaecat ex. Eu eiusmod qui incididunt Lorem tempor consectetur excepteur.Reprehenderit irure consequat amet sunt duis consequat tempor dolore aliqua consequat duis quis elit velit. Sunt laborum amet sit duis. Reprehenderit excepteur ipsum fugiat est labore. Consectetur magna aliquip deserunt tempor cillum incididunt Lorem esse nisi. Officia nulla nulla minim non eiusmod.o nostrud excepteur. Sit laborum eiusmod dolore occaecat non et. Ex ipsum ea commodo nostrud nulla velit voluptate.",
-                    style: TextStyle(height: 1.5),
+                  const SizedBox(height: 10),
+                  ...widget.extra.map(buildSingleCheckbox).toList(),
+                  const SizedBox(height: 25),
+                  BigText(
+                    text: "Se pueden quitar",
+                    size: 15,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
+                  ...widget.remove.map(buildSingleCheckbox).toList()
                 ],
               ),
             ),
           )
-        ]));
+        ],
+      ),
+      bottomNavigationBar: const BottomCard(),
+    );
   }
+
+  Widget buildSingleCheckbox(CheckBoxState checkbox) => CheckboxListTile(
+      contentPadding: const EdgeInsets.all(0),
+      controlAffinity: ListTileControlAffinity.leading,
+      activeColor: Colors.red,
+      value: checkbox.value,
+      title: Text(
+        checkbox.title,
+        style: const TextStyle(fontSize: 15),
+      ),
+      onChanged: (value) => setState(() => checkbox.value = value!));
 }
 
-/*
-Stack(
-          children: [
-            Positioned(
-                left: 0,
-                right: 0,
-                child: FadeInImage.assetNetwork(
-                  width: double.maxFinite,
-                  height: 280,
-                  placeholder: 'assets/loading.gif',
-                  image:
-                      "https://cdn.pixabay.com/photo/2023/01/08/18/42/road-7705906_960_720.jpg",
-                  fit: BoxFit.cover,
-                )),
-            Positioned(
-              top: 280,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                clipBehavior: Clip.antiAlias,
-                padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigText(
-                      text:
-                          "Nombre del Product dfsdf sdmmasmks askmakskas askdmaskmf skdmaks",
-                      overflow: TextOverflow.clip,
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                        "Excepteur sunt commodo nostrud excepteur. Sit laborum eiusmod dolore occaecat non et. Ex ipsum ea commodo nostrud nulla velit voluptate."),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-        bottomNavigationBar: const BottomCard());
-        */
+class CheckBoxState {
+  final String title;
+  bool value;
+
+  CheckBoxState({required this.title, this.value = false});
+}

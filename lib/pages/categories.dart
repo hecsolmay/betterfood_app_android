@@ -1,4 +1,7 @@
+import 'package:betterfood_app_android/common/common.dart';
+import 'package:betterfood_app_android/pages/screens.dart';
 import 'package:betterfood_app_android/widgets/products_card.dart';
+import 'package:betterfood_app_android/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class Categories extends StatelessWidget {
@@ -7,44 +10,25 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Categories'),
+      appBar: AppBar(
+        title: const Text('Categories'),
+      ),
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) => ProductsCard(
+          productName: "Hector $index",
         ),
-        body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) => ProductsCard(
-            productName: "Hector $index",
-          ),
-        ),
-        bottomNavigationBar: Container(
-          height: 70,
-          // padding:
-          // const EdgeInsets.only(top: 20, bottom: 20, left: 25, right: 25),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(98, 211, 211, 211),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-        ));
+      ),
+      bottomNavigationBar: GestureDetector(
+          onTap: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) => DraggableScrollableSheet(
+                    initialChildSize: 0.8,
+                    expand: false,
+                    builder: (context, scrollController) => Order()),
+              ),
+          child: const BottomNavBar()),
+    );
   }
 }
-/*
-
-GridView.count(
-        crossAxisSpacing: 1,
-        mainAxisSpacing: 2,
-        crossAxisCount: 1,
-        children: const [
-          ProductsCard(productName: 'productName'),
-          ProductsCard(productName: 'productName'),
-          ProductsCard(productName: 'productName'),
-          ProductsCard(productName: 'productName'),
-          ProductsCard(productName: 'productName'),
-          ProductsCard(productName: 'productName'),
-          ProductsCard(productName: 'productName'),
-          ProductsCard(productName: 'productName'),
-        ],
-      ),
-*/

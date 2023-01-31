@@ -1,3 +1,6 @@
+import 'package:betterfood_app_android/common/common.dart';
+import 'package:betterfood_app_android/widgets/order_card.dart';
+import 'package:betterfood_app_android/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class Order extends StatelessWidget {
@@ -6,14 +9,35 @@ class Order extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Tu Orden',
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
+                ],
+              ),
+              expandedHeight: 50,
+              pinned: true,
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(15, (index) => const OrderCard()),
+                ),
+              ),
+            )
+          ],
         ),
-      ),
-      body: const Center(
-        child: Text('Aqui van todas las ordenes'),
-      ),
-    );
+        bottomNavigationBar: GestureDetector(
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/');
+            },
+            child: const BottomNavBar()));
   }
 }

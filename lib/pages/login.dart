@@ -6,7 +6,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Stack(
         children: [
           Container(
@@ -17,14 +16,13 @@ class Login extends StatelessWidget {
             )),
           ),
           Positioned(
-            left: 93,
-            bottom: 600,
-             child: Image.asset(
-                'assets/images/logo.png',
-                width: 180,
-                height: 180,
-          
-              ),
+            left: 90,
+            top: 3,
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 180,
+              height: 180,
+            ),
           ),
           Positioned(
             bottom: 40,
