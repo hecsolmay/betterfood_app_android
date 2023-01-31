@@ -1,6 +1,5 @@
 import 'package:betterfood_app_android/widgets/products_card.dart';
 import 'package:flutter/material.dart';
-import 'package:betterfood_app_android/common/common.dart';
 
 class Categories extends StatelessWidget {
   const Categories({super.key});

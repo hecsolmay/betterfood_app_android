@@ -27,11 +27,19 @@ class BottomCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(Icons.remove_circle_outline, color: Colors.red),
-                const SizedBox(width: 5),
+                GestureDetector(
+                  child: Icon(Icons.remove_circle_outline, color: Colors.red),
+                  onTap: () => print("less click"),
+                ),
+                // const Icon(Icons.remove_circle_outline, color: Colors.red),
+                const SizedBox(width: 10),
                 BigText(text: "0"),
-                const SizedBox(width: 5),
-                const Icon(Icons.add_circle, color: Colors.red),
+                const SizedBox(width: 10),
+                GestureDetector(
+                  child: Icon(Icons.add_circle, color: Colors.red),
+                  onTap: () => print("plus click"),
+                ),
+                // const Icon(Icons.add_circle, color: Colors.red),
               ],
             ),
           ),
