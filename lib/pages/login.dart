@@ -6,22 +6,44 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      
+      body: Stack(
         children: [
-          const Text('Aqui va el login'),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/register-form');
-            },
-            child: const Text('Registrese'),
-          )
+          Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+              image: AssetImage('assets/images/FondoImg.jpg'),
+              fit: BoxFit.cover,
+            )),
+          ),
+          Positioned(
+            left: 93,
+            bottom: 600,
+             child: Image.asset(
+                'assets/images/logo.png',
+                width: 180,
+                height: 180,
+          
+              ),
+          ),
+          Positioned(
+            bottom: 40,
+            right: 10,
+            left: 10,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  textStyle: const TextStyle(fontSize: 20),
+                  backgroundColor: const Color.fromRGBO(186, 0, 0, 1),
+                  fixedSize: const Size(200, 40)),
+              onPressed: () {
+                Navigator.pushNamed(context, '/register-form');
+              },
+              child: const Text('Registro'),
+            ),
+          ),
         ],
-      )),
+      ),
     );
   }
 }
