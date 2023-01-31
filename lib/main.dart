@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Login(),
+        '/login': (context) => const Login(),
         '/home': (context) => const Home(),
         '/register-form': (context) => const LoginForm(),
         '/categories': (context) => const Categories(),
