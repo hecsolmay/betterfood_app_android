@@ -23,18 +23,18 @@ class LoginForm extends StatelessWidget {
             ),
           ),
 
-           Positioned(
-            top: 53,
-            left: 95,
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.10,
+            left: MediaQuery.of(context).size.width * 0.30,
             child: Container(
-              width: 180,
-              height: 180,
+              width: MediaQuery.of(context).size.width * 0.40,
+              height: MediaQuery.of(context).size.width * 0.40,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/logo.png', 
-                  ),
-                  fit: BoxFit.fitWidth
+                    image: AssetImage(
+                      'assets/images/logo.png', 
+                    ),
+                    fit: BoxFit.fitWidth
                 ),
               )
             )
@@ -69,7 +69,7 @@ class LoginForm extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Número de mesa',
                           labelStyle: TextStyle(
-                              color: Color.fromRGBO(255, 131, 17, 100)),
+                            color: Color.fromRGBO(255, 131, 17, 100)),
                         ),
                       ),
                       // ignore: prefer_const_constructors
@@ -88,15 +88,16 @@ class LoginForm extends StatelessWidget {
                         },
                         child: const Text('Ingresar'),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                    ]
+                  )
+                )
+              )
+            )
           )
+        ]
+      )
 
-        ],
-      ),
     );
+    
   }
 }

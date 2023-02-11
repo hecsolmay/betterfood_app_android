@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:betterfood_app_android/common/common.dart';
 import 'package:betterfood_app_android/pages/product_details.dart';
 import 'package:flutter/material.dart';
@@ -90,20 +92,51 @@ class RowContain extends StatelessWidget {
   }
 }
 
-class Buttons extends StatelessWidget {
+class Buttons extends StatefulWidget {
   const Buttons({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<Buttons> createState() => _ButtonsState();
+}
+
+
+
+class _ButtonsState extends State<Buttons> {
+
+   int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      if (_counter > 0) {
+        _counter--;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(Icons.remove_circle_outline, color: Colors.red),
+         IconButton(
+         icon: Icon( Icons.remove_circle_outline, color: Colors.red),
+          onPressed: _decrementCounter,
+        ),
         const SizedBox(width: 5),
-        BigText(text: "0"),
+        BigText(text:'$_counter'),
         const SizedBox(width: 5),
-        const Icon(Icons.add_circle, color: Colors.red),
+         IconButton(
+          icon: Icon(Icons.add_circle, color: Colors.red),
+          onPressed: _incrementCounter,
+          
+        ),
       ],
     );
   }

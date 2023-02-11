@@ -81,7 +81,7 @@ class Categories extends StatelessWidget {
                 builder: (context) => DraggableScrollableSheet(
                     initialChildSize: 0.8,
                     expand: false,
-                    builder: (context, scrollController) => Order()),
+                    builder: (context, scrollController) => const Order()),
               ),
           child: const BottomNavBar()),
     );

@@ -8,8 +8,8 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+      child: const Padding(
+        padding: EdgeInsets.only(bottom: 8.0),
         child: Card(
           child: RowContain(
             productName: "Hola",
