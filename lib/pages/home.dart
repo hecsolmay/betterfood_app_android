@@ -62,70 +62,161 @@ class Home extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: const [
-                        Categoria(
-                          nameCategoria: 'Recomenados',
-                          routeName: 'wgsrt',
-                          urlImg:
-                              'https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg',
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Categoria(
-                          nameCategoria: 'Ensaladas',
-                          routeName: 'wgsrt',
-                          urlImg:
-                              'https://cdn.pixabay.com/photo/2015/05/31/12/58/spinach-791629_960_720.jpg',
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Categoria(
-                          nameCategoria: 'Postres',
-                          routeName: 'wgsrt',
-                          urlImg:
-                              'https://cdn.pixabay.com/photo/2017/01/16/17/45/pancake-1984716_1280.jpg',
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          children: const [
-                            Categoria(
-                              nameCategoria: 'Carnes',
-                              routeName: '/categories',
-                              urlImg:
-                                  'https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_960_720.jpg',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Categoria(
-                              nameCategoria: 'Pastas',
-                              routeName: 'wgsrt',
-                              urlImg:
-                                  'https://cdn.pixabay.com/photo/2016/02/05/15/34/pasta-1181189_960_720.jpg',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Categoria(
-                              nameCategoria: 'Bebidas',
-                              routeName: 'wgsrt',
-                              urlImg:
-                              'https://cdn.pixabay.com/photo/2016/10/22/20/34/wines-1761613_960_720.jpg',
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth < 600) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: const [
+                              Categoria(
+                                nameCategoria: 'Recomenados',
+                                routeName: 'wgsrt',
+                                urlImg:
+                                    'https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg',
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Categoria(
+                                nameCategoria: 'Ensaladas',
+                                routeName: 'wgsrt',
+                                urlImg:
+                                    'https://cdn.pixabay.com/photo/2015/05/31/12/58/spinach-791629_960_720.jpg',
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Categoria(
+                                nameCategoria: 'Postres',
+                                routeName: 'wgsrt',
+                                urlImg:
+                                    'https://cdn.pixabay.com/photo/2017/01/16/17/45/pancake-1984716_1280.jpg',
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Column(
+                                children: const [
+                                  Categoria(
+                                    nameCategoria: 'Carnes',
+                                    routeName: '/categories',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_960_720.jpg',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Categoria(
+                                    nameCategoria: 'Pastas',
+                                    routeName: 'wgsrt',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2016/02/05/15/34/pasta-1181189_960_720.jpg',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Categoria(
+                                    nameCategoria: 'Bebidas',
+                                    routeName: 'wgsrt',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2016/10/22/20/34/wines-1761613_960_720.jpg',
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                children: const [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Categoria(
+                                    nameCategoria: 'Recomenados',
+                                    routeName: 'wgsrt',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Categoria(
+                                    nameCategoria: 'Ensaladas',
+                                    routeName: 'wgsrt',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2015/05/31/12/58/spinach-791629_960_720.jpg',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+
+                                ],
+                              ),
+
+                              Column(
+                                children: const [
+                                  
+                                  
+                                  Categoria(
+                                    nameCategoria: 'Pastas',
+                                    routeName: 'wgsrt',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2016/02/05/15/34/pasta-1181189_960_720.jpg',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Categoria(
+                                    nameCategoria: 'Bebidas',
+                                    routeName: 'wgsrt',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2016/10/22/20/34/wines-1761613_960_720.jpg',
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: const [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                   Categoria(
+                                      nameCategoria: 'Carnes',
+                                      routeName: '/categories',
+                                      urlImg:
+                                          'https://cdn.pixabay.com/photo/2016/03/05/23/02/barbecue-1239434_960_720.jpg',
+                                    ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Categoria(
+                                    nameCategoria: 'Postres',
+                                    routeName: 'wgsrt',
+                                    urlImg:
+                                        'https://cdn.pixabay.com/photo/2017/01/16/17/45/pancake-1984716_1280.jpg',
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+
+                                ],
+                              ),
+                            ],
+                          )
+                        ]
+                      );
+                    }
+                  }
                 )
               )
             ] 
