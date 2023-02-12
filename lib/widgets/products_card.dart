@@ -129,9 +129,10 @@ class _ButtonsState extends State<Buttons> {
          icon: Icon( Icons.remove_circle_outline, color: Colors.red),
           onPressed: _decrementCounter,
         ),
-        const SizedBox(width: 5),
+        const SizedBox(width: 0.5),
         BigText(text:'$_counter'),
-        const SizedBox(width: 5),
+        const SizedBox(width: 0.5
+        ),
          IconButton(
           icon: Icon(Icons.add_circle, color: Colors.red),
           onPressed: _incrementCounter,

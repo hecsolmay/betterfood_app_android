@@ -21,8 +21,9 @@ class BottomCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
+          height: 60,
             padding:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                const EdgeInsets.only(top: 10, bottom: 10, left: 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -38,13 +39,13 @@ class BottomCard extends StatelessWidget {
             child: Container(
               padding:
                   const EdgeInsets.only(top: 13, bottom: 13, left: 7, right: 7),
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
               child: BigText(
                 text: "\$340.0  Agregar A la Orden",
                 color: Colors.white,
                 size: 13,
               ),
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
             ),
           )
         ],
