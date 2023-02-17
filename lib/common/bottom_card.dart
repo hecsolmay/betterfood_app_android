@@ -2,6 +2,8 @@ import 'package:betterfood_app_android/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:betterfood_app_android/widgets/products_card.dart';
 
+import '../widgets/botones_count.dart';
+
 class BottomCard extends StatelessWidget {
   const BottomCard({super.key});
 
@@ -21,17 +23,14 @@ class BottomCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-          height: 60,
-            padding:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 0),
+            height: 60,
+            padding: const EdgeInsets.only(top: 10, bottom: 10, left: 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
             ),
             child: Row(
-              children: const [
-                Buttons()
-              ],
+              children: const [Buttons()],
             ),
           ),
           GestureDetector(

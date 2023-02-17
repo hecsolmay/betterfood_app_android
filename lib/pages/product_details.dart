@@ -29,6 +29,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            backgroundColor: Color.fromRGBO(186, 0, 0, 1),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -45,7 +46,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 height: 280,
                 placeholder: 'assets/loading.gif',
                 image:
-                    "https://cdn.pixabay.com/photo/2023/01/08/18/42/road-7705906_960_720.jpg",
+                    'https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -93,16 +94,31 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  Widget buildSingleCheckbox(CheckBoxState checkbox) => CheckboxListTile(
-      contentPadding: const EdgeInsets.all(0),
-      controlAffinity: ListTileControlAffinity.leading,
-      activeColor: Colors.red,
-      value: checkbox.value,
-      title: Text(
-        checkbox.title,
-        style: const TextStyle(fontSize: 15),
-      ),
-      onChanged: (value) => setState(() => checkbox.value = value!));
+  Widget buildSingleCheckbox(CheckBoxState checkbox) => Dismissible(
+        key: UniqueKey(),
+        background: Container(color: Color.fromARGB(185, 221, 0, 0)),
+        direction: DismissDirection.endToStart,
+        onDismissed: (direction) {
+          setState(() {
+            if (widget.extra.contains(checkbox)) {
+              widget.extra.remove(checkbox);
+            } else {
+              widget.remove.remove(checkbox);
+            }
+          });
+        },
+        child: CheckboxListTile(
+          contentPadding: const EdgeInsets.all(0),
+          controlAffinity: ListTileControlAffinity.leading,
+          activeColor: Color.fromRGBO(186, 0, 0, 1),
+          value: checkbox.value,
+          title: Text(
+            checkbox.title,
+            style: const TextStyle(fontSize: 15),
+          ),
+          onChanged: (value) => setState(() => checkbox.value = value!),
+        ),
+      );
 }
 
 class CheckBoxState {

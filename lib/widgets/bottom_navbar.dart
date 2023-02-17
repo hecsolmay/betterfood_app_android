@@ -34,7 +34,8 @@ class BottomNavBar extends StatelessWidget {
               size: 13,
             ),
             decoration: BoxDecoration(
-                color: Colors.red, borderRadius: BorderRadius.circular(10)),
+                color: Color.fromRGBO(186, 0, 0, 1),
+                borderRadius: BorderRadius.circular(10)),
           ),
         ],
       ),
