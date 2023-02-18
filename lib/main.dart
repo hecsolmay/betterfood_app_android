@@ -20,10 +20,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red),
+      ),
       initialRoute: '/',
       routes: {
-        '/login': (context) => const Login(),
+        '/': (context) => const Login(),
         '/home': (context) => const Home(),
         '/register-form': (context) => const LoginForm(),
         '/categories': (context) => const Categories(),
