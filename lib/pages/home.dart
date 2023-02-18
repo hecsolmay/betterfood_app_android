@@ -22,6 +22,7 @@ class Home extends StatelessWidget {
         title: const AppBarSearch(),
       ),
       body: ListView(
+        shrinkWrap: true,
         children: [
           const SizedBox(height: 10),
           Padding(
@@ -64,7 +65,7 @@ class Home extends StatelessWidget {
                   children: const [
                     Categoria(
                       nameCategoria: 'Recomenados',
-                      routeName: 'wgsrt',
+                      routeName: '/categories',
                       urlImg:
                           'https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg',
                     ),
@@ -73,7 +74,7 @@ class Home extends StatelessWidget {
                     ),
                     Categoria(
                       nameCategoria: 'Ensaladas',
-                      routeName: 'wgsrt',
+                      routeName: '/categories',
                       urlImg:
                           'https://cdn.pixabay.com/photo/2015/05/31/12/58/spinach-791629_960_720.jpg',
                     ),
@@ -82,7 +83,7 @@ class Home extends StatelessWidget {
                     ),
                     Categoria(
                       nameCategoria: 'Postres',
-                      routeName: 'wgsrt',
+                      routeName: '/categories',
                       urlImg:
                           'https://cdn.pixabay.com/photo/2017/01/11/11/33/cake-1971552_960_720.jpg',
                     ),
@@ -103,7 +104,7 @@ class Home extends StatelessWidget {
                         ),
                         Categoria(
                           nameCategoria: 'Pastas',
-                          routeName: 'wgsrt',
+                          routeName: '/categories',
                           urlImg:
                               'https://cdn.pixabay.com/photo/2016/02/05/15/34/pasta-1181189_960_720.jpg',
                         ),
@@ -112,7 +113,7 @@ class Home extends StatelessWidget {
                         ),
                         Categoria(
                           nameCategoria: 'Bebidas',
-                          routeName: 'wgsrt',
+                          routeName: '/categories',
                           urlImg:
                               'https://cdn.pixabay.com/photo/2016/10/22/20/34/wines-1761613_960_720.jpg',
                         ),
