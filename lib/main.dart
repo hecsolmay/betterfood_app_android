@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     '/': (context) => const Home(),
     '/register': (context) => const Login(),
     '/register-form': (context) => const LoginForm(),
-    '/categories': (context) => const Categories(),
+    '/categories': (context) => Categories(),
     '/order': (context) => const Order(),
   };
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Login(),
         '/home': (context) => const Home(),
         '/register-form': (context) => const LoginForm(),
-        '/categories': (context) => const Categories(),
+        '/categories': (context) => Categories(),
         '/order': (context) => const Order(),
       },
     );

@@ -5,7 +5,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
       body: Stack(
         children: [
           Container(
@@ -16,16 +16,16 @@ class Login extends StatelessWidget {
             )),
           ),
           Positioned(
-            left: 90,
-            top: 3,
+            left: MediaQuery.of(context).size.width * 0.3,
+            top: MediaQuery.of(context).size.height * 0.03,
             child: Image.asset(
               'assets/images/logo.png',
-              width: 180,
-              height: 180,
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: MediaQuery.of(context).size.width * 0.4,
             ),
           ),
           Positioned(
-            bottom: 40,
+            bottom: MediaQuery.of(context).size.height * 0.1,
             right: 10,
             left: 10,
             child: TextButton(
@@ -43,5 +43,6 @@ class Login extends StatelessWidget {
         ],
       ),
     );
+
   }
 }

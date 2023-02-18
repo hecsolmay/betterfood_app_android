@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:betterfood_app_android/common/common.dart';
 import 'package:betterfood_app_android/pages/product_details.dart';
 import 'package:flutter/material.dart';
+
+import 'botones_count.dart';
 
 class ProductsCard extends StatelessWidget {
   final String productName;
@@ -72,7 +76,7 @@ class RowContain extends StatelessWidget {
                     const Buttons(),
                     Container(
                       decoration: const BoxDecoration(
-                        color: Colors.red,
+                        color: Color.fromRGBO(186, 0, 0, 1),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(5),
                             bottomRight: Radius.circular(5)),
@@ -86,25 +90,6 @@ class RowContain extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class Buttons extends StatelessWidget {
-  const Buttons({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(Icons.remove_circle_outline, color: Colors.red),
-        const SizedBox(width: 5),
-        BigText(text: "0"),
-        const SizedBox(width: 5),
-        const Icon(Icons.add_circle, color: Colors.red),
-      ],
     );
   }
 }

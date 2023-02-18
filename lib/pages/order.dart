@@ -12,6 +12,7 @@ class Order extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              backgroundColor: Color.fromARGB(185, 221, 0, 0),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

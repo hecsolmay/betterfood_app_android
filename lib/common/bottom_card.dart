@@ -1,5 +1,8 @@
 import 'package:betterfood_app_android/common/common.dart';
 import 'package:flutter/material.dart';
+import 'package:betterfood_app_android/widgets/products_card.dart';
+
+import '../widgets/botones_count.dart';
 
 class BottomCard extends StatelessWidget {
   const BottomCard({super.key});
@@ -20,29 +23,14 @@ class BottomCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            padding:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+            height: 60,
+            padding: const EdgeInsets.only(top: 10, bottom: 10, left: 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
             ),
             child: Row(
-              children: [
-                GestureDetector(
-                  child: const Icon(Icons.remove_circle_outline,
-                      color: Colors.red),
-                  onTap: () => print("less click"),
-                ),
-                // const Icon(Icons.remove_circle_outline, color: Colors.red),
-                const SizedBox(width: 10),
-                BigText(text: "0"),
-                const SizedBox(width: 10),
-                GestureDetector(
-                  child: const Icon(Icons.add_circle, color: Colors.red),
-                  onTap: () => print("plus click"),
-                ),
-                // const Icon(Icons.add_circle, color: Colors.red),
-              ],
+              children: const [Buttons()],
             ),
           ),
           GestureDetector(
@@ -50,13 +38,13 @@ class BottomCard extends StatelessWidget {
             child: Container(
               padding:
                   const EdgeInsets.only(top: 13, bottom: 13, left: 7, right: 7),
+              decoration: BoxDecoration(
+                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
               child: BigText(
                 text: "\$340.0  Agregar A la Orden",
                 color: Colors.white,
                 size: 13,
               ),
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
             ),
           )
         ],
