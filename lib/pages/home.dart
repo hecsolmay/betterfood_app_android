@@ -119,6 +119,7 @@ class Home extends StatelessWidget {
                                     height: 10,
                                   ),
                                   Categoria(
+
                                     nameCategoria: 'Bebidas',
                                     routeName: 'wgsrt',
                                     urlImg:
