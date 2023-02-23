@@ -5,6 +5,8 @@ import '../widgets/products_card.dart';
 import 'order.dart';
 
 class Categories extends StatefulWidget {
+  const Categories({super.key});
+
   @override
   State<Categories> createState() => _CategoriesState();
 }
@@ -12,6 +14,7 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  
 
   @override
   void initState() {
@@ -29,24 +32,26 @@ class _CategoriesState extends State<Categories>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppBarSearch(),
+        title: const AppBarSearch(),
         backgroundColor: Colors.white,
+      
         bottom: TabBar(
           controller: _tabController,
+          isScrollable: true,
           tabs: const [
-            Tab(text: 'Recomedados'),
+            Tab(text: 'Recomendados'),
             Tab(text: 'Carnes'),
             Tab(text: 'Pastas'),
             Tab(text: 'Ensaladas'),
             Tab(text: 'Postres'),
             Tab(text: 'Bebidas'),
           ],
-          labelColor: Color.fromRGBO(186, 0, 0, 1),
-          unselectedLabelColor: Color.fromARGB(255, 235, 56, 56),
-          indicatorColor: Color.fromRGBO(186, 0, 0, 1),
+          labelColor: const Color.fromRGBO(186, 0, 0, 1),
+          unselectedLabelColor: const Color.fromARGB(255, 235, 56, 56),
+          indicatorColor: const Color.fromRGBO(186, 0, 0, 1),
           indicatorSize: TabBarIndicatorSize.tab,
           indicatorWeight: 2.0,
-          indicatorPadding: EdgeInsets.symmetric(horizontal: 16.0),
+          indicatorPadding: const EdgeInsets.symmetric(horizontal: 16.0),
         ),
       ),
       body: TabBarView(

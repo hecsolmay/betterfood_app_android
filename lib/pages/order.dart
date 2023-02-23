@@ -1,4 +1,4 @@
-import 'package:betterfood_app_android/common/common.dart';
+
 import 'package:betterfood_app_android/widgets/order_card.dart';
 import 'package:betterfood_app_android/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class Order extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Color.fromARGB(185, 221, 0, 0),
+              backgroundColor: const Color.fromARGB(185, 221, 0, 0),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

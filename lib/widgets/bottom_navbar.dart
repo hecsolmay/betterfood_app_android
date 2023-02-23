@@ -21,21 +21,21 @@ class BottomNavBar extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("0 Productos"),
+              const Text("0 Productos"),
               BigText(text: "\$0.00", size: 25),
             ],
           ),
           Container(
             padding:
                 const EdgeInsets.only(top: 13, bottom: 13, left: 30, right: 30),
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(186, 0, 0, 1),
+                borderRadius: BorderRadius.circular(10)),
             child: BigText(
               text: "Ver Orden",
               color: Colors.white,
               size: 13,
             ),
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(186, 0, 0, 1),
-                borderRadius: BorderRadius.circular(10)),
           ),
         ],
       ),

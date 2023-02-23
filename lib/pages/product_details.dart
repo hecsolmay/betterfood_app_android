@@ -29,7 +29,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Color.fromRGBO(186, 0, 0, 1),
+            backgroundColor: const Color.fromRGBO(186, 0, 0, 1),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -61,16 +61,35 @@ class _ProductDetailsState extends State<ProductDetails> {
                 children: [
                   BigText(
                     text:
-                        "Nombre del Product dfsdf sdmmasmks askmakskas askdmaskmf skdmaks",
+                        "Tuetano con Ribeye",
                     overflow: TextOverflow.clip,
                     size: 18,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   const Text(
-                    "Aliqua eu culpa laboris do exercitation in duis. Duis occaecat culpa commodo commodo sunt deserunt aute occaecat anim occaecat ea. Deserunt culpa consectetur pariatur in.",
-                    style: TextStyle(height: 1.5),
+                    "Corte de res cocido en sus jugos, acompañado dcon tuetano y una guarnicion de ensalada",
+                    style: TextStyle(
+                      height: 1.5,
+                      fontSize: 15,
+                      ),
+                    
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 15),
+                  BigText(
+                    text: "MX340.00",
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 1,
+                    width: 340,
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5)
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   BigText(
                     text: "Ingredientes Extra",
                     size: 15,
@@ -96,7 +115,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   Widget buildSingleCheckbox(CheckBoxState checkbox) => Dismissible(
         key: UniqueKey(),
-        background: Container(color: Color.fromARGB(185, 221, 0, 0)),
+        background: Container(color: const Color.fromARGB(185, 221, 0, 0)),
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
           setState(() {
@@ -110,7 +129,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         child: CheckboxListTile(
           contentPadding: const EdgeInsets.all(0),
           controlAffinity: ListTileControlAffinity.leading,
-          activeColor: Color.fromRGBO(186, 0, 0, 1),
+          activeColor: const Color.fromRGBO(186, 0, 0, 1),
           value: checkbox.value,
           title: Text(
             checkbox.title,

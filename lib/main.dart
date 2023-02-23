@@ -1,30 +1,24 @@
+import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:betterfood_app_android/pages/screens.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
-  final routes = {
-    '/': (context) => const Home(),
-    '/register': (context) => const Login(),
-    '/register-form': (context) => const LoginForm(),
-    '/categories': (context) => Categories(),
-    '/order': (context) => const Order(),
-  };
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red),
-      ),
-      initialRoute: '/',
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)),
+      initialRoute: '/login',
       routes: {
-        '/': (context) => const Login(),
+        '/login': (context) => const Login(),
         '/home': (context) => const Home(),
         '/register-form': (context) => const LoginForm(),
         '/categories': (context) => Categories(),
@@ -32,4 +26,7 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+
+
 }
+
