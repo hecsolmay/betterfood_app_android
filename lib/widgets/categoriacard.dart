@@ -12,7 +12,6 @@ class Categoria extends StatelessWidget {
     required this.urlImg,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,33 +22,27 @@ class Categoria extends StatelessWidget {
             Navigator.pushNamed(context, routeName);
           },
           child: Container(
-            width: 127.0,
-            height: 105.0,
+            width: 130.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(0.0),
+              color: Colors.blue,
             ),
             child: Stack(
               fit: StackFit.expand,
               alignment: Alignment.center,
               children: [
                 Positioned(
-                  left: 0.0,
-                  top: 56.0,
-                  right: null,
-                  bottom: null,
-                  width: 127.0,
-                  height: 49.0,
+                  top: 80,
                   child: SizedBox(
-                    width: 10,
-                    height: 49,
+                    width: 127.0,
+                    height: 56.0,
                     child: Card(
                       color: const Color.fromRGBO(186, 0, 0, 1),
+                      elevation: 10,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(5.0),
                           topRight: Radius.circular(5.0),
-                          bottomRight: Radius.circular(0.0),
-                          bottomLeft: Radius.circular(0.0),
                         ),
                       ),
                       child: Column(
@@ -68,12 +61,7 @@ class Categoria extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 23.0,
-                  top: 0.0,
-                  right: null,
-                  bottom: null,
-                  width: 80.0,
-                  height: 80.0,
+                  top: 18,
                   child: SizedBox(
                     width: 80.0,
                     height: 80.0,
