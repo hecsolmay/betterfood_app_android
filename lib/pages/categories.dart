@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/appbar.dart';
 import '../widgets/bottom_navbar.dart';
+import '../widgets/orden_list.dart';
 import '../widgets/products_card.dart';
 import 'order.dart';
 
@@ -14,7 +15,6 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  
 
   @override
   void initState() {
@@ -34,7 +34,6 @@ class _CategoriesState extends State<Categories>
       appBar: AppBar(
         title: const AppBarSearch(),
         backgroundColor: Colors.white,
-      
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
@@ -107,18 +106,7 @@ class _CategoriesState extends State<Categories>
           ),
         ],
       ),
-      bottomNavigationBar: GestureDetector(
-        onTap: () => showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          builder: (context) => DraggableScrollableSheet(
-            initialChildSize: 0.8,
-            expand: false,
-            builder: (context, scrollController) => const Order(),
-          ),
-        ),
-        child: const BottomNavBar(),
-      ),
+      bottomNavigationBar: orden_list(),
     );
   }
 }
