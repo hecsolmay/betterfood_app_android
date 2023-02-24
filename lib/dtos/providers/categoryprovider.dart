@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:betterfood_app_android/dtos/response/categoryresponse.dart';
 
-class CategoryProvider extends ChangeNotifier {
+class categoryProvider extends ChangeNotifier {
   bool isLoading = true;
   final logger = Logger();
 
