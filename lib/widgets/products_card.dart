@@ -99,7 +99,7 @@ class ImageBorder extends StatelessWidget {
   double? width;
   double? height;
   ImageBorder(
-      {Key? key, required this.image, this.width = 120, this.height = 160})
+      {Key? key, required this.image, this.width = 120, this.height = 170})
       : super(key: key);
 
   @override
