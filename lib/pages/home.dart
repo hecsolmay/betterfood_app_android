@@ -131,8 +131,90 @@ class Home extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-          ),
-        ));
+                    const SizedBox(height: 10),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const CarruselImg(),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          if (constraints.maxWidth < 600) {
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 1,
+                              crossAxisSpacing: 0.5, // ajustar valor de espaciado en el eje cruzado (horizontal)
+                              mainAxisSpacing: 0.5, // ajustar valor de espaciado en el eje principal (vertical)
+                             ),
+                              itemCount: CategoryProvider.categories?.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final category = CategoryProvider.categories?[index];
+                                return Padding(
+                                  
+                                  padding: const EdgeInsets.all(50.0),
+                                  child: Container(
+                                    
+                                    child: Center(child: Categoria(
+                                        nameCategoria: '${category?.name}',
+                                        routeName: '/categories',
+                                        urlImg:
+                                            '${category?.imgUrl}',
+                                      )),),
+                                );
+                                 
+                              },
+                            );
+                            
+                          } else {
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                               crossAxisCount: 4,
+                              childAspectRatio: 1,
+                              crossAxisSpacing: 10, // set to 0 to remove spacing between columns
+                              mainAxisSpacing: 10,
+                                
+                              ),
+                              itemCount: CategoryProvider.categories?.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final category = CategoryProvider.categories?[index];
+                                return Padding(
+                                  
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    
+                                    child: Center(child: Categoria(
+                                        nameCategoria: '${category?.name}',
+                                        routeName: '/categories',
+                                        urlImg:
+                                            '${category?.imgUrl}',
+                                      )),),
+                                );
+                                 
+                              },
+                            );
+                            
+                          }
+                        }
+                      )
+                    )
+                )
+
+                   
+                // );
+              // },
+              
+            )),
+
+         
+          );   
   }
 }
