@@ -86,14 +86,11 @@ class Home extends StatelessWidget {
                                     final category =
                                         categoryProvider.categories?[index];
                                     return Padding(
-                                      padding: const EdgeInsets.all(50.0),
-                                      child: Container(
-                                        child: Center(
-                                            child: Categoria(
-                                          nameCategoria: '${category?.name}',
-                                          routeName: '/categories',
-                                          urlImg: '${category?.imgUrl}',
-                                        )),
+                                      padding: const EdgeInsets.all(20),
+                                      child: Categoria(
+                                        nameCategoria: '${category?.name}',
+                                        routeName: '/categories',
+                                        urlImg: '${category?.imgUrl}',
                                       ),
                                     );
                                   },

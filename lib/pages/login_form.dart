@@ -8,8 +8,9 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(children: [
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
           SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
@@ -37,45 +38,52 @@ class LoginForm extends StatelessWidget {
                         fit: BoxFit.fitWidth),
                   ))),
           SingleChildScrollView(
-              child: Container(
-                  margin: const EdgeInsets.only(top: 450),
-                  height: 300,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Padding(
-                          padding: const EdgeInsets.all(40.0),
-                          child: Column(children: [
-                            const Text(
-                              'Bienvenido a BetterFood',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            // ignore: prefer_const_constructors
+            child: Container(
+              margin: const EdgeInsets.only(top: 450),
+              height: 300,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Bienvenido a BetterFood',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      // ignore: prefer_const_constructors
 
-                            QrCodeScanner(),
-                            // ignore: prefer_const_constructors
-                            SizedBox(height: 50),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color.fromRGBO(186, 0, 0, 1),
-                                  fixedSize: const Size(300, 40)),
-                              onPressed: () {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  '/home',
-                                  (route) => false,
-                                );
-                              },
-                              child: const Text('Ingresar'),
-                            ),
-                          ])))))
-        ]));
+                      // QrCodeScanner(),
+                      // ignore: prefer_const_constructors
+                      SizedBox(height: 50),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromRGBO(186, 0, 0, 1),
+                            fixedSize: const Size(300, 40)),
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/home',
+                            (route) => false,
+                          );
+                        },
+                        child: const Text('Ingresar'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
