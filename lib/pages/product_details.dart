@@ -60,8 +60,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BigText(
-                    text:
-                        "Tuetano con Ribeye",
+                    text: "Tuetano con Ribeye",
                     overflow: TextOverflow.clip,
                     size: 18,
                   ),
@@ -71,8 +70,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     style: TextStyle(
                       height: 1.5,
                       fontSize: 15,
-                      ),
-                    
+                    ),
                   ),
                   const SizedBox(height: 15),
                   BigText(
@@ -85,9 +83,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Container(
                     height: 1,
                     width: 340,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5)
-                    ),
+                    decoration:
+                        BoxDecoration(color: Colors.black.withOpacity(0.5)),
                   ),
                   const SizedBox(height: 20),
                   BigText(
@@ -126,16 +123,19 @@ class _ProductDetailsState extends State<ProductDetails> {
             }
           });
         },
-        child: CheckboxListTile(
-          contentPadding: const EdgeInsets.all(0),
-          controlAffinity: ListTileControlAffinity.leading,
-          activeColor: const Color.fromRGBO(186, 0, 0, 1),
-          value: checkbox.value,
-          title: Text(
-            checkbox.title,
-            style: const TextStyle(fontSize: 15),
-          ),
-          onChanged: (value) => setState(() => checkbox.value = value!),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              checkbox.title,
+              style: const TextStyle(fontSize: 15),
+            ),
+            Checkbox(
+              activeColor: const Color.fromRGBO(186, 0, 0, 1),
+              value: checkbox.value,
+              onChanged: (value) => setState(() => checkbox.value = value!),
+            ),
+          ],
         ),
       );
 }

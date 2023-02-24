@@ -10,10 +10,9 @@ void main() => runApp(const MyApp());
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  
   @override
   Widget build(BuildContext context) {
-    return  ChangeNotifierProvider(
+    return ChangeNotifierProvider(
       create: (context) => CategoryProvider()..fetchCategory(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -32,7 +31,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
-
 }
-

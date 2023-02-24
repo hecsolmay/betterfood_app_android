@@ -87,11 +87,10 @@ class _LoginMesaState extends State<LoginMesa> {
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromRGBO(186, 0, 0, 1),
+                            backgroundColor: const Color.fromRGBO(186, 0, 0, 1),
                             fixedSize: const Size(300, 40)),
                         onPressed: () {
-                           Navigator.pushNamedAndRemoveUntil(
+                          Navigator.pushNamedAndRemoveUntil(
                             context,
                             '/home',
                             (route) => false,
@@ -99,13 +98,18 @@ class _LoginMesaState extends State<LoginMesa> {
                         },
                         child: const Text('Ingresar'),
                       ),
-                    ]
-                  )
-                )
-              )
-            )
+                    ],
+                  ),
+                ),
+              ),
+            ),
         ],
+      
+        
+        
       )
+
     );
+    
   }
 }

@@ -16,7 +16,7 @@ class Card_Slider extends StatelessWidget {
         elevation: 10,
         color: const Color.fromRGBO(186, 0, 0, 1),
         child: Container(
-          margin: const EdgeInsets.all(6.0),
+          margin: const EdgeInsets.all(3.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             image: DecorationImage(
