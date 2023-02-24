@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/escaner.dart';
-
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
 

@@ -1,7 +1,7 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:betterfood_app_android/widgets/appbar.dart';
 import 'package:betterfood_app_android/widgets/carrusel_img.dart';
-import 'package:betterfood_app_android/widgets/categoriacard.dart';
+import 'package:betterfood_app_android/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
