@@ -1,9 +1,10 @@
+import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
+import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widgets/appbar.dart';
-import '../widgets/bottom_navbar.dart';
 import '../widgets/orden_list.dart';
 import '../widgets/products_card.dart';
-import 'order.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -19,7 +20,7 @@ class _CategoriesState extends State<Categories>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -30,20 +31,24 @@ class _CategoriesState extends State<Categories>
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductsProvider>(context);
+    final categoryProvider = Provider.of<CategoryProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const AppBarSearch(),
         backgroundColor: Colors.white,
         bottom: TabBar(
+          physics: const BouncingScrollPhysics(),
           controller: _tabController,
           isScrollable: true,
           tabs: const [
+            Tab(text: 'Todos'),
             Tab(text: 'Recomendados'),
             Tab(text: 'Carnes'),
             Tab(text: 'Pastas'),
-            Tab(text: 'Ensaladas'),
-            Tab(text: 'Postres'),
-            Tab(text: 'Bebidas'),
+            // Tab(text: 'Ensaladas'),
+            // Tab(text: 'Postres'),
+            // Tab(text: 'Bebidas'),
           ],
           labelColor: const Color.fromRGBO(186, 0, 0, 1),
           unselectedLabelColor: const Color.fromARGB(255, 235, 56, 56),
@@ -54,54 +59,38 @@ class _CategoriesState extends State<Categories>
         ),
       ),
       body: TabBarView(
+        physics: const BouncingScrollPhysics(),
         controller: _tabController,
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: productProvider.products?.length,
               itemBuilder: (context, index) => ProductsCard(
-                productName: "Recomendacion $index",
+                product: productProvider.products![index],
               ),
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: productProvider.products?.length,
               itemBuilder: (context, index) => ProductsCard(
-                productName: "Carne $index",
+                product: productProvider.products![index],
               ),
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: productProvider.products?.length,
               itemBuilder: (context, index) => ProductsCard(
-                productName: "Pasta $index",
+                product: productProvider.products![index],
               ),
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: productProvider.products?.length,
               itemBuilder: (context, index) => ProductsCard(
-                productName: "Ensalada $index",
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) => ProductsCard(
-                productName: "Postre $index",
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) => ProductsCard(
-                productName: "Bebida $index",
-                
+                product: productProvider.products![index],
               ),
             ),
           ),
