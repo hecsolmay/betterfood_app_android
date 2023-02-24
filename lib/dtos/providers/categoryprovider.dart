@@ -22,6 +22,7 @@ class CategoryProvider extends ChangeNotifier{
     final List<dynamic>results = json['results'];
     print('${results}');
     _categories = results.map((e) => CategoryResponseDto.fromMap(e)).toList();
+    
     isLoading = false;
 
     notifyListeners();

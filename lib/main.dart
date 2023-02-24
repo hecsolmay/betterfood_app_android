@@ -1,4 +1,6 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
+import 'package:betterfood_app_android/pages/login_mesa.dart';
+import 'package:betterfood_app_android/pages/login_mesero.dart';
 import 'package:flutter/material.dart';
 import 'package:betterfood_app_android/pages/screens.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +24,9 @@ class MyApp extends StatelessWidget {
           routes: {
             '/login': (context) => const Login(),
             '/home': (context) => const Home(),
-            '/register-form': (context) => const LoginForm(),
-            '/categories': (context) => Categories(),
+            '/loginmesero': (context) => const LoginMesero(),
+            '/loginmesa': (context) => const LoginMesa(),
+            '/categories': (context) => const Categories(),
             '/order': (context) => const Order(),
           },
       ),

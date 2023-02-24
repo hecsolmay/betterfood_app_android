@@ -102,6 +102,7 @@ class _CategoriesState extends State<Categories>
               itemCount: 10,
               itemBuilder: (context, index) => ProductsCard(
                 productName: "Bebida $index",
+                
               ),
             ),
           ),

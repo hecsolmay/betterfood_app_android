@@ -41,7 +41,7 @@ class Login extends StatelessWidget {
                   backgroundColor: const Color.fromRGBO(186, 0, 0, 1),
                   fixedSize: const Size(200, 40)),
               onPressed: () {
-                Navigator.pushNamed(context, '/register-form');
+                Navigator.pushNamed(context, '/loginmesero');
               },
               child: const Text('Registro'),
             ),

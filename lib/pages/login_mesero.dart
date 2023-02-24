@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+import 'package:qrscan/qrscan.dart' as scanner;
+
+class LoginMesero extends StatefulWidget {
+  const LoginMesero({super.key});
+
+  @override
+  State<LoginMesero> createState() => _LoginMeseroState();
+}
+
+class _LoginMeseroState extends State<LoginMesero> {
+  String qrValue = "Codigo qr";
+
+  void scanQr()async {
+    String? cameraScanResult = await scanner.scan();
+    setState(() {
+      qrValue = cameraScanResult!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
+      body : Stack(
         children: [
-          SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height,
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/Fondo.png'),
-                        fit: BoxFit.cover)),
-              ),
+          Container(
+            decoration: const BoxDecoration(
+              image:  DecorationImage(
+                image: AssetImage('assets/images/Fondo.png'),
+                fit: BoxFit.cover
+              )
             ),
           ),
-
-          Positioned(
+           Positioned(
             top: MediaQuery.of(context).size.height * 0.10,
             left: MediaQuery.of(context).size.width * 0.30,
             child: Container(
@@ -39,9 +48,7 @@ class LoginForm extends StatelessWidget {
               )
             )
           ),
-
-          SingleChildScrollView(
-            child: Container(
+          Container(
               margin: const EdgeInsets.only(top: 450),
               height: 300,
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -53,7 +60,7 @@ class LoginForm extends StatelessWidget {
                   child: Column(
                     children: [
                       const Text(
-                        'Bienvenido a BetterFood',
+                        'Bienvenido a BetterFood - MESERO',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
@@ -65,15 +72,21 @@ class LoginForm extends StatelessWidget {
                       SizedBox(
                         height: 30,
                       ),
-                      const TextField(
-                        decoration: InputDecoration(
-                          labelText: 'Número de mesa',
-                          labelStyle: TextStyle(
-                            color: Color.fromRGBO(255, 131, 17, 100)),
-                        ),
+                     IconButton(
+                        onPressed: () async {
+                          String? cameraScanResult = await scanner.scan();
+                          setState(() {
+                            qrValue = cameraScanResult!;
+                          });
+                          Navigator.pushNamed(context, '/loginmesa');
+                        },
+                        icon: const Icon(Icons.camera, color: Colors.black,),
+                        iconSize: 50.0,
                       ),
-                      // ignore: prefer_const_constructors
-                      SizedBox(height: 50),
+
+                      const SizedBox(
+                        height: 30,
+                      ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
@@ -93,11 +106,8 @@ class LoginForm extends StatelessWidget {
                 )
               )
             )
-          )
-        ]
+        ],
       )
-
     );
-    
   }
 }

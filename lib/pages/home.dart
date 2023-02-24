@@ -83,7 +83,7 @@ class Home extends StatelessWidget {
                             return GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               childAspectRatio: 1,
                               crossAxisSpacing: 0.5, // ajustar valor de espaciado en el eje cruzado (horizontal)
