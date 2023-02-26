@@ -1,5 +1,6 @@
+import 'package:betterfood_app_android/dtos/providers/mesero_provider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 class LoginMesero extends StatefulWidget {
@@ -10,12 +11,13 @@ class LoginMesero extends StatefulWidget {
 }
 
 class _LoginMeseroState extends State<LoginMesero> {
-  String qrValue = "Codigo qr";
+  
+  String qrMesero = " ";
 
   void scanQr()async {
     String? cameraScanResult = await scanner.scan();
     setState(() {
-      qrValue = cameraScanResult!;
+      qrMesero = cameraScanResult!;
     });
   }
 
@@ -76,31 +78,30 @@ class _LoginMeseroState extends State<LoginMesero> {
                         onPressed: () async {
                           String? cameraScanResult = await scanner.scan();
                           setState(() {
-                            qrValue = cameraScanResult!;
+                            qrMesero = cameraScanResult!;
                           });
+                         await Provider.of<WaiterProvider>(context, listen: false).getByIdWaiter(qrMesero);
+                          
                           Navigator.pushNamed(context, '/loginmesa');
                         },
                         icon: const Icon(Icons.camera, color: Colors.black,),
                         iconSize: 50.0,
                       ),
-
                       const SizedBox(
                         height: 30,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromRGBO(186, 0, 0, 1),
-                            fixedSize: const Size(300, 40)),
-                        onPressed: () {
-                           Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            '/home',
-                            (route) => false,
-                          );
-                        },
-                        child: const Text('Ingresar'),
-                      ),
+
+                      const Text(
+                        'Oprima el icono para scanear su codigo QR',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        textAlign: TextAlign.center,
+                        ),
+                      
+                     
                     ]
                   )
                 )

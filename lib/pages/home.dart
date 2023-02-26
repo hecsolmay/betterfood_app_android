@@ -1,7 +1,8 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
+import 'package:betterfood_app_android/dtos/providers/mesa_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
+import 'package:betterfood_app_android/dtos/response/mesa_response.dart';
 import 'package:betterfood_app_android/widgets/appbar.dart';
-import 'package:betterfood_app_android/widgets/carrusel_img.dart';
 import 'package:betterfood_app_android/widgets/category_card.dart';
 import 'package:betterfood_app_android/widgets/slider_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,9 +22,11 @@ class _HomeState extends State<Home> {
     print(search);
   }
 
+  
   @override
   void initState() {
     super.initState();
+    
     loadData();
   }
 
@@ -144,25 +147,39 @@ class _HomeState extends State<Home> {
   }
 }
 
-class _titleApp extends StatelessWidget {
+class _titleApp extends StatefulWidget {
   const _titleApp({
     super.key,
   });
+
+  @override
+  State<_titleApp> createState() => _titleAppState();
+}
+
+class _titleAppState extends State<_titleApp> {
+  TableResponseDto? _table;
+  @override
+  void initState() {
+    super.initState();
+    // Obtener la instancia del provider en el initState
+    _table = Provider.of<TableProvider>(context, listen: false).table;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
-          children: const [
+          children:  const [
             Text(
               'Bienvenido a ',
               style: TextStyle(fontSize: 25, color: Colors.black),
             ),
+           
           ],
         ),
         Row(
-          children: const [
+          children:  const [
             Text(
               'BETTER FOOD',
               style: TextStyle(
@@ -170,8 +187,24 @@ class _titleApp extends StatelessWidget {
                 color: Color.fromRGBO(186, 0, 0, 1),
               ),
             ),
+             
           ],
         ),
+        const SizedBox(height: 5,),
+        Row(
+          children: [
+            if (_table != null)
+              Text(
+                'Mesa #: ${_table?.numMesa}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                
+              ),
+          ],
+        )
       ],
     );
   }
