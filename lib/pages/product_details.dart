@@ -17,6 +17,8 @@ class ProductDetails extends StatefulWidget {
     CheckBoxState(title: 'Algo'),
   ];
 
+  
+
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
@@ -116,11 +118,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         direction: DismissDirection.endToStart,
         onDismissed: (direction) {
           setState(() {
-            if (widget.extra.contains(checkbox)) {
-              widget.extra.remove(checkbox);
-            } else {
               widget.remove.remove(checkbox);
-            }
           });
         },
         child: Row(

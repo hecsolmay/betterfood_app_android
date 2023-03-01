@@ -79,13 +79,24 @@ class RowContain extends StatelessWidget {
                   children: [
                     const Buttons(),
                     Container(
+                      height: 20,
+                      width: 20,
                       decoration: const BoxDecoration(
                         color: Color.fromRGBO(186, 0, 0, 1),
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(5),
                             bottomRight: Radius.circular(5)),
                       ),
-                      child: const Icon(Icons.add, color: Colors.white),
+                      child: IconButton(
+                        iconSize: 10.0,
+                       
+                        color: Colors.white,
+                        icon: const Icon(Icons.add),
+                        onPressed: (){
+
+                        },
+                        )
+                        
                     )
                   ],
                 ),

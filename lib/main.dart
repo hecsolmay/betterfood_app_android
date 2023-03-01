@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductsProvider()),
          ChangeNotifierProvider(create: (_) => WaiterProvider()),
         ChangeNotifierProvider(create: (_) => TableProvider()),
-      ],
+      ],  
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',

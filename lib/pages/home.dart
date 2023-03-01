@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4,
+                                crossAxisCount: 3,
                                 childAspectRatio: 1,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
