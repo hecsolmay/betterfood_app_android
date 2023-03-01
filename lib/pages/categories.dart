@@ -13,26 +13,46 @@ class Categories extends StatefulWidget {
   State<Categories> createState() => _CategoriesState();
 }
 
-class _CategoriesState extends State<Categories>
-    with SingleTickerProviderStateMixin {
+class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
   late TabController _tabController;
 
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+
+  //   int tabLength =
+  //       Provider.of<CategoryProvider>(context).categories!.length + 1;
+  //   _tabController = TabController(length: tabLength, vsync: this);
+  //   _tabController.addListener(_handleTabSelection);
+  // }
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+
+    int tabLength = Provider.of<CategoryProvider>(context, listen: false)
+            .categories!
+            .length +
+        1;
+    _tabController = TabController(length: tabLength, vsync: this);
+    _tabController.addListener(_handleTabSelection);
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      // final cateProviderInstance = Provider.of<CategoryProvider>(context);
+      // print(cateProviderInstance.categories?[_tabController.index - 1].id);
+      print(_tabController.index);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductsProvider>(context);
     final categoryProvider = Provider.of<CategoryProvider>(context);
+    final productProvider = Provider.of<ProductsProvider>(context);
+    final listWidgets = categoryProvider.categories?.map((e) {
+          return TabBody(productProvider: productProvider);
+        }).toList() ??
+        [];
     return Scaffold(
       appBar: AppBar(
         title: const AppBarSearch(),
@@ -41,15 +61,26 @@ class _CategoriesState extends State<Categories>
           physics: const BouncingScrollPhysics(),
           controller: _tabController,
           isScrollable: true,
-          tabs: const [
-            Tab(text: 'Todos'),
-            Tab(text: 'Recomendados'),
-            Tab(text: 'Carnes'),
-            Tab(text: 'Pastas'),
-            // Tab(text: 'Ensaladas'),
-            // Tab(text: 'Postres'),
-            // Tab(text: 'Bebidas'),
+          tabs: [
+            const Tab(text: "Todos"),
+            ...categoryProvider.categories?.map((item) {
+                  return Tab(text: item.name);
+                }).toList() ??
+                []
           ],
+          onTap: (int index) {
+            _tabController.animateTo(index);
+
+            if (index == 0) {
+              return print(index);
+            } else {
+              print(categoryProvider.categories?[index - 1].id);
+              final category = categoryProvider.categories?[index - 1];
+              final stringId = category!.id;
+
+              productProvider.getAllByCategory(stringId);
+            }
+          },
           labelColor: const Color.fromRGBO(186, 0, 0, 1),
           unselectedLabelColor: const Color.fromARGB(255, 235, 56, 56),
           indicatorColor: const Color.fromRGBO(186, 0, 0, 1),
@@ -62,41 +93,64 @@ class _CategoriesState extends State<Categories>
         physics: const BouncingScrollPhysics(),
         controller: _tabController,
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: productProvider.products?.length,
-              itemBuilder: (context, index) => ProductsCard(
-                product: productProvider.products![index],
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: productProvider.products?.length,
-              itemBuilder: (context, index) => ProductsCard(
-                product: productProvider.products![index],
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: productProvider.products?.length,
-              itemBuilder: (context, index) => ProductsCard(
-                product: productProvider.products![index],
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: productProvider.products?.length,
-              itemBuilder: (context, index) => ProductsCard(
-                product: productProvider.products![index],
-              ),
-            ),
-          ),
+          productProvider.isLoading || categoryProvider.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: productProvider.products?.length,
+                    itemBuilder: (context, index) => ProductsCard(
+                      product: productProvider.products![index],
+                    ),
+                  ),
+                ),
+          ...listWidgets,
         ],
       ),
       bottomNavigationBar: const orden_list(),
+    );
+  }
+}
+
+class TabBody extends StatelessWidget {
+  const TabBody({
+    super.key,
+    required this.productProvider,
+  });
+
+  final ProductsProvider productProvider;
+
+  @override
+  Widget build(BuildContext context) {
+    final products = productProvider.productsCategory;
+    return productProvider.isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : Expanded(
+            child: ListView.builder(
+              itemCount: products?.length,
+              itemBuilder: (context, index) => ProductsCard(
+                product: products![index],
+              ),
+            ),
+          );
+  }
+}
+
+class TabCategory extends StatelessWidget {
+  final String text;
+  const TabCategory({
+    super.key,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Tab(text: text),
+      onTap: () {
+        print("pressed");
+      },
     );
   }
 }
