@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:betterfood_app_android/common/globals.dart';
 import 'package:betterfood_app_android/dtos/response/mesero_response.dart';
@@ -23,6 +24,7 @@ class WaiterProvider extends ChangeNotifier {
         _waiter = WaiterResponseDto.fromJson(json["results"]);
         notifyListeners();
       } else {
+    
         throw Exception('Failed to load waiter');
       }
     } catch (e) {

@@ -83,8 +83,7 @@ Widget build(BuildContext context) {
                                 qrMesero = cameraScanResult!;
                               });
                               await Provider.of<WaiterProvider>(context,
-                                      listen: false)
-                                  .getByIdWaiter(qrMesero);
+                                      listen: false).getByIdWaiter(qrMesero);
                               Navigator.pushNamed(context, '/loginmesa');
                             },
                             icon: const Icon(
