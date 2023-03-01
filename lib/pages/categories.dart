@@ -16,15 +16,6 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
   late TabController _tabController;
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-
-  //   int tabLength =
-  //       Provider.of<CategoryProvider>(context).categories!.length + 1;
-  //   _tabController = TabController(length: tabLength, vsync: this);
-  //   _tabController.addListener(_handleTabSelection);
-  // }
   @override
   void initState() {
     super.initState();
@@ -34,14 +25,37 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
             .length +
         1;
     _tabController = TabController(length: tabLength, vsync: this);
-    _tabController.addListener(_handleTabSelection);
+    _tabController.addListener(_handleTabChange);
   }
 
-  void _handleTabSelection() {
-    if (_tabController.indexIsChanging) {
-      // final cateProviderInstance = Provider.of<CategoryProvider>(context);
-      // print(cateProviderInstance.categories?[_tabController.index - 1].id);
-      print(_tabController.index);
+  @override
+  void dispose() {
+    _tabController.removeListener(_handleTabChange);
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  void _handleTabChange() {
+    if (!_tabController.indexIsChanging) {
+      final selectedTabIndex = _tabController.index;
+      if (selectedTabIndex != 0) {
+        final categoryProvider =
+            Provider.of<CategoryProvider>(context, listen: false);
+        final productProvider =
+            Provider.of<ProductsProvider>(context, listen: false);
+
+        if (selectedTabIndex == 0) {
+          return print(selectedTabIndex);
+        } else {
+          productProvider.isLoading = true;
+          // print(categoryProvider.categories?[selectedTabIndex - 1].id);
+          final category = categoryProvider.categories?[selectedTabIndex - 1];
+          // final stringId = category!.id;
+          print(category?.id);
+
+          productProvider.getAllByCategory(category!.id);
+        }
+      }
     }
   }
 
@@ -69,7 +83,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
                 []
           ],
           onTap: (int index) {
-            _tabController.animateTo(index);
+            // _tabController.animateTo(index);
 
             if (index == 0) {
               return print(index);
@@ -77,7 +91,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
               print(categoryProvider.categories?[index - 1].id);
               final category = categoryProvider.categories?[index - 1];
               final stringId = category!.id;
-
+              print(stringId);
               productProvider.getAllByCategory(stringId);
             }
           },
@@ -98,10 +112,13 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
                   child: CircularProgressIndicator(),
                 )
               : Expanded(
-                  child: ListView.builder(
-                    itemCount: productProvider.products?.length,
-                    itemBuilder: (context, index) => ProductsCard(
-                      product: productProvider.products![index],
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: ListView.builder(
+                      itemCount: productProvider.products?.length,
+                      itemBuilder: (context, index) => ProductsCard(
+                        product: productProvider.products![index],
+                      ),
                     ),
                   ),
                 ),
@@ -124,16 +141,19 @@ class TabBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final products = productProvider.productsCategory;
-    return productProvider.isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : Expanded(
-            child: ListView.builder(
-              itemCount: products?.length,
-              itemBuilder: (context, index) => ProductsCard(
-                product: products![index],
+    return Expanded(
+      child: productProvider.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+              padding: const EdgeInsets.only(top: 25),
+              child: ListView.builder(
+                itemCount: products?.length,
+                itemBuilder: (context, index) => ProductsCard(
+                  product: products![index],
+                ),
               ),
             ),
-          );
+    );
   }
 }
 

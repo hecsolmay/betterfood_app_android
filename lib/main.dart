@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)),
-        initialRoute: '/login',
+        initialRoute: '/home',
         routes: {
           '/login': (context) => const Login(),
           '/home': (context) => const Home(),

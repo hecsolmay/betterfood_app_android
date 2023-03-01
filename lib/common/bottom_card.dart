@@ -5,7 +5,8 @@ import 'package:betterfood_app_android/widgets/products_card.dart';
 import '../widgets/botones_count.dart';
 
 class BottomCard extends StatelessWidget {
-  const BottomCard({super.key});
+  final int price;
+  const BottomCard({super.key, this.price = 340});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class BottomCard extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.red, borderRadius: BorderRadius.circular(10)),
               child: BigText(
-                text: "\$340.0  Agregar A la Orden",
+                text: "\$$price  Agregar A la Orden",
                 color: Colors.white,
                 size: 13,
               ),

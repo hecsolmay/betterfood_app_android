@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:betterfood_app_android/common/common.dart';
 import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:betterfood_app_android/pages/product_details.dart';
@@ -31,7 +29,7 @@ class ProductsCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetails(productName: product.name),
+            builder: (context) => ProductDetails(id: product.id),
           ),
         );
       },
@@ -108,14 +106,27 @@ class ImageBorder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: width,
       height: height,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-        child: FadeInImage.assetNetwork(
-            fit: BoxFit.fill, placeholder: 'assets/loading.gif', image: image),
+        // border: Border.all(
+        //   color: Colors.black54,
+        //   width: 1.0,
+        // ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
+          child: FadeInImage.assetNetwork(
+              fit: BoxFit.fill,
+              placeholder: 'assets/loading.gif',
+              image: image),
+        ),
       ),
     );
   }
