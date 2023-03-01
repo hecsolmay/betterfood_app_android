@@ -22,17 +22,16 @@ class _HomeState extends State<Home> {
     print(search);
   }
 
-  
   @override
   void initState() {
     super.initState();
-    
+
     loadData();
   }
 
   Future<void> loadData() async {
-    await Provider.of<CategoryProvider>(context, listen: false).fetchCategory();
-    await Provider.of<ProductsProvider>(context, listen: false).getAll();
+    Provider.of<CategoryProvider>(context, listen: false).fetchCategory();
+    Provider.of<ProductsProvider>(context, listen: false).getAll();
   }
 
   @override
@@ -113,7 +112,7 @@ class _HomeState extends State<Home> {
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4,
+                                crossAxisCount: 3,
                                 childAspectRatio: 1,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10,
@@ -170,16 +169,15 @@ class _titleAppState extends State<_titleApp> {
     return Column(
       children: [
         Row(
-          children:  const [
+          children: const [
             Text(
               'Bienvenido a ',
               style: TextStyle(fontSize: 25, color: Colors.black),
             ),
-           
           ],
         ),
         Row(
-          children:  const [
+          children: const [
             Text(
               'BETTER FOOD',
               style: TextStyle(
@@ -187,10 +185,11 @@ class _titleAppState extends State<_titleApp> {
                 color: Color.fromRGBO(186, 0, 0, 1),
               ),
             ),
-             
           ],
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(
+          height: 5,
+        ),
         Row(
           children: [
             if (_table != null)
@@ -201,7 +200,6 @@ class _titleAppState extends State<_titleApp> {
                   fontSize: 15,
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
-                
               ),
           ],
         )
