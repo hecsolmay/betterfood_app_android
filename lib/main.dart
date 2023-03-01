@@ -21,13 +21,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductsProvider()),
         ChangeNotifierProvider(create: (_) => WaiterProvider()),
         ChangeNotifierProvider(create: (_) => TableProvider()),
-      ],  
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)),
-        initialRoute: '/home',
+        initialRoute: '/login',
         routes: {
           '/login': (context) => const Login(),
           '/home': (context) => const Home(),
