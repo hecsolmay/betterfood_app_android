@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class TableProvider extends ChangeNotifier {
+  bool _found = false; 
+  bool get found => _found;
 
   TableResponseDto? _table = null;
 
@@ -20,6 +22,7 @@ class TableProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         _table = TableResponseDto.fromJson(json["results"]);
+        _found = true;
         notifyListeners();
       } else {
         throw Exception('Failed to load table');
