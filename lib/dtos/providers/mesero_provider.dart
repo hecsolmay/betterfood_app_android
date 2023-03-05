@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:betterfood_app_android/common/globals.dart';
 import 'package:betterfood_app_android/dtos/response/mesero_response.dart';
@@ -7,6 +8,8 @@ import 'package:http/http.dart' as http;
 
 class WaiterProvider extends ChangeNotifier {
 
+  bool _found = false; 
+  bool get found => _found;
   WaiterResponseDto? _waiter = null;
 
   WaiterResponseDto? get waiter => _waiter;
@@ -21,8 +24,10 @@ class WaiterProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
         _waiter = WaiterResponseDto.fromJson(json["results"]);
+        _found = true;
         notifyListeners();
       } else {
+        
         throw Exception('Failed to load waiter');
       }
     } catch (e) {

@@ -4,6 +4,7 @@ import 'package:betterfood_app_android/dtos/response/mesero_response.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
+
 class LoginMesa extends StatefulWidget {
   const LoginMesa({super.key});
 
@@ -12,10 +13,8 @@ class LoginMesa extends StatefulWidget {
 }
 
 class _LoginMesaState extends State<LoginMesa> {
-
-
   String qrMesa = " ";
-  
+
   WaiterResponseDto? _waiter;
   @override
   void initState() {
@@ -33,6 +32,7 @@ class _LoginMesaState extends State<LoginMesa> {
 
   @override
   Widget build(BuildContext context) {
+    final tableprovider = Provider.of<TableProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -63,7 +63,8 @@ class _LoginMesaState extends State<LoginMesa> {
               ),
               Center(
                 child: Container(
-                  margin: EdgeInsets.only(top: 0.5 * MediaQuery.of(context).size.height),
+                  margin: EdgeInsets.only(
+                      top: 0.5 * MediaQuery.of(context).size.height),
                   width: 0.9 * MediaQuery.of(context).size.width,
                   height: 300,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -111,19 +112,17 @@ class _LoginMesaState extends State<LoginMesa> {
                             iconSize: 50.0,
                           ),
                           const SizedBox(
-                              height: 25,
+                            height: 25,
+                          ),
+                          const Text(
+                            'Oprima el icono para scanear el QR de la mesa',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
-                
-                            const Text(
-                              'Oprima el icono para scanear el QR de la mesa',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                              ),
-                              textAlign: TextAlign.center,
-                              ),
-                            
+                            textAlign: TextAlign.center,
+                          ),
                         ],
                       ),
                     ),
@@ -133,6 +132,35 @@ class _LoginMesaState extends State<LoginMesa> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> AlertNotFound(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Error en econtrar mesa'),
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          SizedBox(
+            height: 20,
+          ),
+          Icon(
+            Icons.cancel,
+            size: 64,
+            color: Colors.red,
+          ),
+          SizedBox(
+            height: 20,
+          )
+        ]),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK'))
+        ],
       ),
     );
   }
