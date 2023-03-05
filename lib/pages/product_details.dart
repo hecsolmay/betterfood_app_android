@@ -4,27 +4,49 @@ import 'package:flutter/material.dart';
 import 'package:betterfood_app_android/common/common.dart';
 import 'package:provider/provider.dart';
 
+class Ingredient {
+  final String name;
+  final double price;
+
+  Ingredient(this.name, this.price);
+}
+
+class ExtraIngredient {
+  final String name;
+  final double price;
+
+  ExtraIngredient(this.name, this.price);
+}
+
 class ProductDetails extends StatefulWidget {
   final String id;
   ProductDetails({super.key, required this.id});
-
-  final extra = [
-    CheckBoxState(title: "Chile"),
-    CheckBoxState(title: "Guacamole"),
-    CheckBoxState(title: "Salsa Roja"),
-  ];
-
-  final remove = [
-    CheckBoxState(title: 'Cebolla'),
-    CheckBoxState(title: 'Tomate'),
-    CheckBoxState(title: 'Algo'),
-  ];
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  final List<Ingredient> _ingredients = [
+    Ingredient('Tomato', 0.5),
+    Ingredient('Onion', 0.3),
+    Ingredient('Pepper', 0.2),
+  ];
+
+  final List<ExtraIngredient> _extraIngredients = [
+    ExtraIngredient('Cheese', 1.0),
+    ExtraIngredient('Mushrooms', 0.8),
+    ExtraIngredient('Bacon', 1.5),
+  ];
+
+  final List<Ingredient> _selectedIngredients = [];
+
+  void _addIngredient(Ingredient ingredient) {
+    setState(() {
+      _selectedIngredients.add(ingredient);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -37,12 +59,9 @@ class _ProductDetailsState extends State<ProductDetails> {
     final product = productProvider.productdetail;
 
     final requiredIngredents = product?.ingredents.where((e) => e.required);
-    final extraIngredents =
-        product?.ingredents.where((e) => !e.required && e.extraPrice != 0);
-    final removeIngredents =
-        product?.ingredents.where((e) => !e.required && e.extraPrice == 0);
     return Scaffold(
       extendBodyBehindAppBar: true,
+      
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -79,7 +98,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 : Container(
                     padding: const EdgeInsets.all(15),
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -113,69 +132,108 @@ class _ProductDetailsState extends State<ProductDetails> {
                         product!.ingredents.isNotEmpty
                             ? IngredentsList(
                                 ingredents: requiredIngredents,
-                                text: "incluye",
+                                text: "Ingredientes",
                               )
                             : const SizedBox(),
-                        extraIngredents!.isNotEmpty
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 20),
-                                  BigText(
-                                    text: "Ingredientes Extra",
-                                    size: 15,
+                        SizedBox(
+                          height: 15,
+                        ),
+                        const Text(
+                          'Productos Extra',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 200,
+                          child: ListView.builder(
+                            itemCount: _extraIngredients.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                title: Text(
+                                  _extraIngredients[index].name,
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                        '\$${_extraIngredients[index].price.toStringAsFixed(2)}'),
+                                    const SizedBox(width: 16),
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.add_box_rounded,
+                                        color: Colors.black,
+                                      ),
+                                      iconSize: 30,
+                                      onPressed: () {
+                                        _addIngredient(Ingredient(
+                                          _extraIngredients[index].name,
+                                          _extraIngredients[index].price,
+                                        ));
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const Text(
+                          'Ingredientes que se pueden quitar',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 200,
+                          child: ListView.builder(
+                            itemCount: _ingredients.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Dismissible(
+                                key: Key(_ingredients[index].name),
+                                direction: DismissDirection.startToEnd,
+                                onDismissed: (direction) {
+                                  final removedIngredient =
+                                      _ingredients.removeAt(index);
+                                  setState(() {});
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Ingrediente eliminado'),
+                                      duration: Duration(milliseconds: 15),
+                                      action: SnackBarAction(
+                                        label: 'Deshacer',
+                                        onPressed: () {
+                                          setState(() {
+                                            _ingredients.insert(
+                                                index, removedIngredient);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                                background: Container(
+                                  color: Colors.red,
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.zero,
+                                  child: ListTile(
+                                    title: Text(
+                                      _ingredients[index].name,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    trailing: Text(
+                                        '\$${_ingredients[index].price.toStringAsFixed(2)}'),
+                                    onTap: () {
+                                      _addIngredient(_ingredients[index]);
+                                    },
                                   ),
-                                  const SizedBox(height: 10),
-                                  ...extraIngredents
-                                      .map(
-                                        (e) => buildSingleCheckbox(
-                                            CheckBoxState(
-                                                title:
-                                                    '${e.name}  \$${e.extraPrice}'),
-                                            false),
-                                      )
-                                      .toList(),
-                                ],
-                              )
-                            //   children: extraIngredents
-                            //       .map((e) => buildSingleCheckbox(
-                            //           CheckBoxState(title: "Hola")))
-                            //       .toList(),
-                            // )
-                            : const SizedBox(),
-                        removeIngredents!.isNotEmpty
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 20),
-                                  BigText(
-                                    text: "Ingredientes removibles",
-                                    size: 15,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  ...removeIngredents
-                                      .map(
-                                        (e) => buildSingleCheckbox(
-                                            CheckBoxState(title: e.name), true),
-                                      )
-                                      .toList(),
-                                ],
-                              )
-                            : const SizedBox(),
-                        // const SizedBox(height: 20),
-                        // BigText(
-                        //   text: "Ingredientes Extra",
-                        //   size: 15,
-                        // ),
-                        // const SizedBox(height: 10),
-                        // ...widget.extra.map(buildSingleCheckbox).toList(),
-                        // const SizedBox(height: 25),
-                        // BigText(
-                        //   text: "Se pueden quitar",
-                        //   size: 15,
-                        // ),
-                        // const SizedBox(height: 10),
-                        // ...widget.remove.map(buildSingleCheckbox).toList()
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -187,53 +245,6 @@ class _ProductDetailsState extends State<ProductDetails> {
           : BottomCard(price: product?.price ?? 0),
     );
   }
-
-  Widget buildSingleCheckbox(CheckBoxState checkbox, bool dimisible) =>
-      dimisible
-          ? Dismissible(
-              key: UniqueKey(),
-              background:
-                  Container(color: const Color.fromARGB(185, 221, 0, 0)),
-              direction: DismissDirection.endToStart,
-              onDismissed: (direction) {
-                setState(() {
-                  if (widget.extra.contains(checkbox)) {
-                    widget.extra.remove(checkbox);
-                  } else {
-                    widget.remove.remove(checkbox);
-                  }
-                });
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    checkbox.title,
-                    style: const TextStyle(fontSize: 15),
-                  ),
-                  Checkbox(
-                    activeColor: const Color.fromRGBO(186, 0, 0, 1),
-                    value: checkbox.value,
-                    onChanged: (value) =>
-                        setState(() => checkbox.value = value!),
-                  ),
-                ],
-              ),
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  checkbox.title,
-                  style: const TextStyle(fontSize: 15),
-                ),
-                Checkbox(
-                  activeColor: const Color.fromRGBO(186, 0, 0, 1),
-                  value: checkbox.value,
-                  onChanged: (value) => setState(() => checkbox.value = value!),
-                ),
-              ],
-            );
 }
 
 class IngredentsList extends StatelessWidget {

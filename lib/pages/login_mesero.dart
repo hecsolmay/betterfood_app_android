@@ -85,7 +85,7 @@ Widget build(BuildContext context) {
                               await Provider.of<WaiterProvider>(context,
                                       listen: false)
                                   .getByIdWaiter(qrMesero);
-                              Navigator.pushNamed(context, '/loginmesa');
+                              Navigator.pushReplacementNamed(context, '/loginmesa');
                             },
                             icon: const Icon(
                               Icons.camera,

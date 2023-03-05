@@ -40,11 +40,13 @@ class _HomeState extends State<Home> {
     final categoryProvider = Provider.of<CategoryProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 252, 250, 250),
         title: const AppBarSearch(),
       ),
       body: LayoutBuilder(
+        
         builder: (context, constraints) => categoryProvider.isLoading ||
                 productProvider.isLoading
             ? const Center(
