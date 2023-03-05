@@ -174,7 +174,7 @@ class _titleAppState extends State<_titleApp> {
           children: const [
             Text(
               'Bienvenido a ',
-              style: TextStyle(fontSize: 25, color: Colors.black),
+              style: TextStyle(fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -185,6 +185,7 @@ class _titleAppState extends State<_titleApp> {
               style: TextStyle(
                 fontSize: 25,
                 color: Color.fromRGBO(186, 0, 0, 1),
+                fontWeight: FontWeight.bold
               ),
             ),
           ],

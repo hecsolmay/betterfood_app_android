@@ -140,8 +140,8 @@ class _LoginMesaState extends State<LoginMesa> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Error en econtrar mesa'),
-        content: Column(mainAxisSize: MainAxisSize.min, children: [
+        title: const Text('Error en econtrar mesa'),
+        content: Column(mainAxisSize: MainAxisSize.min, children: const [
           SizedBox(
             height: 20,
           ),
@@ -159,7 +159,7 @@ class _LoginMesaState extends State<LoginMesa> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('OK'))
+              child: const Text('OK'))
         ],
       ),
     );

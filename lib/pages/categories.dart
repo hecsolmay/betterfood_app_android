@@ -69,6 +69,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
         [];
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.red),
         title: const AppBarSearch(),
         backgroundColor: Colors.white,
         bottom: TabBar(
