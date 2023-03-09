@@ -39,105 +39,111 @@ class _HomeState extends State<Home> {
     final productProvider = Provider.of<ProductsProvider>(context);
     final categoryProvider = Provider.of<CategoryProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Color.fromARGB(255, 252, 250, 250),
-        title: const AppBarSearch(),
-      ),
-      body: LayoutBuilder(
-        
+      resizeToAvoidBottomInset: false,
+      body: 
+      LayoutBuilder(
         builder: (context, constraints) => categoryProvider.isLoading ||
                 productProvider.isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
+            :  
+              SafeArea(
+                minimum: const EdgeInsets.only(top: 20),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: constraints.maxWidth > 600
-                          ? const EdgeInsets.symmetric(horizontal: 60)
-                          : const EdgeInsets.only(left: 30, top: 20),
-                      child: const _titleApp(),
-                    ),
-                    const SizedBox(height: 20),
-                    CarouselSlider(
-                      items: productProvider.products
-                          ?.map((e) => Card_Slider(UrlImage: e.imgUrl))
-                          .toList(),
-                      options: CarouselOptions(
-                        height: 220.0,
-                        enlargeCenterPage: true,
-                        autoPlay: true,
-                        aspectRatio: 16 / 9,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enableInfiniteScroll: true,
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        viewportFraction: 0.8,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          if (constraints.maxWidth < 600) {
-                            return GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 1,
-                                crossAxisSpacing: 0.5,
-                                mainAxisSpacing: 0.5,
+                    const AppBarSearch(),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: constraints.maxWidth > 600
+                                  ? const EdgeInsets.symmetric(horizontal: 60)
+                                  : const EdgeInsets.only(left: 30, top: 20),
+                              child: const _titleApp(),
+                            ),
+                            const SizedBox(height: 20),
+                            CarouselSlider(
+                              items: productProvider.products
+                                  ?.map((e) => Card_Slider(UrlImage: e.imgUrl))
+                                  .toList(),
+                              options: CarouselOptions(
+                                height: 220.0,
+                                enlargeCenterPage: true,
+                                autoPlay: true,
+                                aspectRatio: 16 / 9,
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enableInfiniteScroll: true,
+                                autoPlayAnimationDuration:
+                                    const Duration(milliseconds: 800),
+                                viewportFraction: 0.8,
                               ),
-                              itemCount: categoryProvider.categories?.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final category =
-                                    categoryProvider.categories?[index];
-                                return Padding(
-                                  padding: const EdgeInsets.all(20),
-                                  child: Categoria(
-                                    nameCategoria: '${category?.name}',
-                                    routeName: '/categories',
-                                    urlImg: '${category?.imgUrl}',
-                                  ),
-                                );
-                              },
-                            );
-                          } else {
-                            return GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                childAspectRatio: 1,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
+                            ),
+                            const SizedBox(height: 15),
+                            Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: LayoutBuilder(
+                                builder: (context, constraints) {
+                                  if (constraints.maxWidth < 600) {
+                                    return GridView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 1,
+                                        crossAxisSpacing: 0.5,
+                                        mainAxisSpacing: 0.5,
+                                      ),
+                                      itemCount: categoryProvider.categories?.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        final category =
+                                            categoryProvider.categories?[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: Categoria(
+                                            nameCategoria: '${category?.name}',
+                                            routeName: '/categories',
+                                            urlImg: '${category?.imgUrl}',
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return GridView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: 1,
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 10,
+                                      ),
+                                      itemCount: categoryProvider.categories?.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        final category =
+                                            categoryProvider.categories?[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            child: Center(
+                                                child: Categoria(
+                                              nameCategoria: '${category?.name}',
+                                              routeName: '/categories',
+                                              urlImg: '${category?.imgUrl}',
+                                            )),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
                               ),
-                              itemCount: categoryProvider.categories?.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final category =
-                                    categoryProvider.categories?[index];
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    child: Center(
-                                        child: Categoria(
-                                      nameCategoria: '${category?.name}',
-                                      routeName: '/categories',
-                                      urlImg: '${category?.imgUrl}',
-                                    )),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
