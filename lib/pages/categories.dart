@@ -1,13 +1,14 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
+import 'package:betterfood_app_android/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/appbar.dart';
-import '../widgets/orden_list.dart';
-import '../widgets/products_card.dart';
+import 'package:betterfood_app_android/widgets/orden_list.dart';
+import 'package:betterfood_app_android/widgets/products_card.dart';
 
 class Categories extends StatefulWidget {
-  const Categories({super.key});
+  final int index;
+  const Categories({super.key, required this.index});
 
   @override
   State<Categories> createState() => _CategoriesState();
@@ -19,14 +20,57 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     int tabLength = Provider.of<CategoryProvider>(context, listen: false)
             .categories!
             .length +
         1;
-    _tabController = TabController(length: tabLength, vsync: this);
+
+    int inicialIndex = widget.index;
+
+    if (inicialIndex == 0) {
+      _tabController = TabController(length: tabLength, vsync: this);
+    } else {
+      _tabController = TabController(
+          length: tabLength, vsync: this, initialIndex: inicialIndex);
+      final categoryProvider =
+          Provider.of<CategoryProvider>(context, listen: false);
+      final productProvider =
+          Provider.of<ProductsProvider>(context, listen: false);
+
+      productProvider.isLoading = true;
+      final category = categoryProvider.categories?[inicialIndex - 1];
+      productProvider.getAllByCategory(category!.id);
+    }
     _tabController.addListener(_handleTabChange);
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   int inicialIndex = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
+  //   int tabLength = Provider.of<CategoryProvider>(context, listen: false)
+  //           .categories!
+  //           .length +
+  //       1;
+
+  //   if (inicialIndex == 0) {
+  //     _tabController = TabController(length: tabLength, vsync: this);
+  //   } else {
+  //     _tabController = TabController(
+  //         length: tabLength, vsync: this, initialIndex: inicialIndex);
+  //     final categoryProvider =
+  //         Provider.of<CategoryProvider>(context, listen: false);
+  //     // final productProvider =
+  //     //     Provider.of<ProductsProvider>(context, listen: false);
+
+  //     // productProvider.isLoading = true;
+  //     final category = categoryProvider.categories?[inicialIndex - 1];
+  //     Provider.of<ProductsProvider>(
+  //       context,
+  //     ).getAllByCategory(category!.id);
+  //   }
+  //   _tabController.addListener(_handleTabChange);
+  // }
 
   @override
   void dispose() {
@@ -44,15 +88,9 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
         final productProvider =
             Provider.of<ProductsProvider>(context, listen: false);
 
-        if (selectedTabIndex == 0) {
-          return print(selectedTabIndex);
-        } else {
+        if (selectedTabIndex != 0) {
           productProvider.isLoading = true;
-          // print(categoryProvider.categories?[selectedTabIndex - 1].id);
           final category = categoryProvider.categories?[selectedTabIndex - 1];
-          // final stringId = category!.id;
-          print(category?.id);
-
           productProvider.getAllByCategory(category!.id);
         }
       }
@@ -70,8 +108,8 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.red),
-        
         backgroundColor: Colors.white,
+        actions: const [SearchButton(), HelpButton()],
         bottom: TabBar(
           physics: const BouncingScrollPhysics(),
           controller: _tabController,
@@ -84,15 +122,10 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
                 []
           ],
           onTap: (int index) {
-            // _tabController.animateTo(index);
-
             if (index == 0) {
-              return print(index);
             } else {
-              print(categoryProvider.categories?[index - 1].id);
               final category = categoryProvider.categories?[index - 1];
               final stringId = category!.id;
-              print(stringId);
               productProvider.getAllByCategory(stringId);
             }
           },
@@ -154,24 +187,6 @@ class TabBody extends StatelessWidget {
                 ),
               ),
             ),
-    );
-  }
-}
-
-class TabCategory extends StatelessWidget {
-  final String text;
-  const TabCategory({
-    super.key,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Tab(text: text),
-      onTap: () {
-        print("pressed");
-      },
     );
   }
 }

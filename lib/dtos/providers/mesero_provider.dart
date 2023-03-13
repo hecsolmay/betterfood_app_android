@@ -5,10 +5,8 @@ import 'package:betterfood_app_android/dtos/response/mesero_response.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-
 class WaiterProvider extends ChangeNotifier {
-
-  bool _found = false; 
+  bool _found = false;
   bool get found => _found;
   WaiterResponseDto? _waiter = null;
 
@@ -16,7 +14,6 @@ class WaiterProvider extends ChangeNotifier {
 
   Future<void> getByIdWaiter(String id) async {
     try {
-      
       final url = "${Globals.apiURL}/api/m/waiter/$id";
       final response = await http.get(Uri.parse(url));
       print(response.body);
@@ -27,12 +24,10 @@ class WaiterProvider extends ChangeNotifier {
         _found = true;
         notifyListeners();
       } else {
-        
         throw Exception('Failed to load waiter');
       }
     } catch (e) {
       print(e);
-    } 
+    }
   }
 }
-

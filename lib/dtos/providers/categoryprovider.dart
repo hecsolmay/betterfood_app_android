@@ -9,6 +9,7 @@ import 'package:betterfood_app_android/dtos/response/categoryresponse.dart';
 
 class CategoryProvider extends ChangeNotifier {
   bool isLoading = true;
+  bool hasError = false;
   final logger = Logger();
 
   List<CategoryResponseDto>? _categories;
@@ -25,19 +26,20 @@ class CategoryProvider extends ChangeNotifier {
         final List<dynamic> results = json['results'];
         _categories =
             results.map((e) => CategoryResponseDto.fromMap(e)).toList();
-        isLoading = false;
 
         logger.d(results);
-
-        notifyListeners();
       } else {
         // If the server did not return a 200 OK response,
         // then throw an exception.
         logger.e("Failed to load album");
-        throw Exception('Failed to load category');
+        hasError = true;
       }
     } catch (e) {
       logger.e(e);
+      hasError = true;
     }
+
+    isLoading = false;
+    notifyListeners();
   }
 }
