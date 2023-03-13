@@ -14,12 +14,14 @@ class ProductsProvider extends ChangeNotifier {
 
   List<ProductResponseDto>? _products = [];
   List<ProductResponseDto>? _productsCategory = [];
+  List<ProductResponseDto> _productsSearched = [];
 
   ProductDetailResponseDto? _productdetail;
   ProductDetailResponseDto? get productdetail => _productdetail;
 
   List<ProductResponseDto>? get products => _products;
   List<ProductResponseDto>? get productsCategory => _productsCategory;
+  List<ProductResponseDto>? get productsSearched => _productsSearched;
 
   Future<dynamic> getAll() async {
     try {
@@ -51,6 +53,7 @@ class ProductsProvider extends ChangeNotifier {
   Future<dynamic> getAllByCategory(String id) async {
     try {
       isLoading = true;
+      notifyListeners();
       logger.d(id);
       final url = "${Globals.apiURL}/api/m/category/$id/products";
       logger.d(url);
@@ -103,5 +106,31 @@ class ProductsProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     return [];
+  }
+
+  Future<dynamic> getSearch(String query) async {
+    try {
+      isLoading = true;
+      final url = "${Globals.apiURL}/api/m/product?q=$query";
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final List<dynamic> results = json["results"];
+        _productsSearched =
+            results.map((e) => ProductResponseDto.fromJson(e)).toList();
+
+        logger.d('Busqueda Ok');
+        logger.d(response.body);
+      } else {
+        logger.e("Failed to load Product");
+        hasError = true;
+      }
+    } catch (e) {
+      logger.e(e);
+      hasError = true;
+    }
+    isLoading = false;
+    notifyListeners();
   }
 }

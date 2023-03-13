@@ -1,14 +1,12 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/mesa_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
-import 'package:betterfood_app_android/dtos/response/mesa_response.dart';
+import 'package:betterfood_app_android/widgets/buttons.dart';
 import 'package:betterfood_app_android/widgets/category_card.dart';
 import 'package:betterfood_app_android/widgets/error_message.dart';
-import 'package:betterfood_app_android/widgets/search_appbar.dart';
 import 'package:betterfood_app_android/widgets/slider_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:betterfood_app_android/widgets/buttons.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -19,11 +17,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  onSearch(String search) {
-    print(search);
-  }
-
   final _carruselOptions = CarouselOptions(
     height: 220.0,
     enlargeCenterPage: true,
@@ -67,7 +60,7 @@ class _HomeState extends State<Home> {
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
+                    physics: const AlwaysScrollableScrollPhysics(),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Column(
@@ -91,8 +84,8 @@ class _HomeState extends State<Home> {
                                       children: [
                                         CarouselSlider(
                                           items: productProvider.products
-                                              ?.map((e) => Card_Slider(
-                                                  UrlImage: e.imgUrl))
+                                              ?.map((e) => CardSlider(
+                                                  urlImage: e.imgUrl))
                                               .toList(),
                                           options: _carruselOptions,
                                         ),

@@ -32,8 +32,6 @@ class _AppBarSearchState extends State<AppBarSearch> {
       _isSearching = true;
     });
 
-    print(text);
-
     final url = Uri.parse(
         'https://betterfood-api.up.railway.app/api/m/product/?q=$text');
     final response = await http.get(url);
@@ -56,7 +54,7 @@ class _AppBarSearchState extends State<AppBarSearch> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.only(top: 5),
       child: Column(
         children: [
           SizedBox(

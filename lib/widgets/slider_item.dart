@@ -1,13 +1,13 @@
 import 'package:betterfood_app_android/pages/categories.dart';
 import 'package:flutter/material.dart';
 
-class Card_Slider extends StatelessWidget {
-  const Card_Slider({
+class CardSlider extends StatelessWidget {
+  const CardSlider({
     Key? key,
-    required this.UrlImage,
+    required this.urlImage,
   }) : super(key: key);
 
-  final String UrlImage;
+  final String urlImage;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class Card_Slider extends StatelessWidget {
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Categories(index: 0),
+            builder: (context) => const Categories(index: 0),
           )),
       // Navigator.pushNamed(context, "/categories"),
       child: SizedBox(
@@ -29,7 +29,7 @@ class Card_Slider extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               image: DecorationImage(
-                image: NetworkImage(UrlImage),
+                image: NetworkImage(urlImage),
                 fit: BoxFit.cover,
               ),
             ),

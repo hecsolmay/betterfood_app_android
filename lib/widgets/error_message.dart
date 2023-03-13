@@ -22,11 +22,11 @@ class ErrorMessage extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'Intentelo de nuevo',
             style: TextStyle(fontSize: 20, color: Colors.red),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
         ],
       ),
     );

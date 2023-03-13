@@ -104,6 +104,7 @@ class RowContain extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ImageBorder extends StatelessWidget {
   final String image;
   double? width;

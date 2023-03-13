@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../pages/order.dart';
 import 'bottom_navbar.dart';
 
-class orden_list extends StatelessWidget {
-  const orden_list({
+class OrdenList extends StatelessWidget {
+  const OrdenList({
     Key? key,
   }) : super(key: key);
 

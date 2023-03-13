@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:betterfood_app_android/common/globals.dart';
 import 'package:flutter/material.dart';

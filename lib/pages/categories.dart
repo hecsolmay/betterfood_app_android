@@ -44,34 +44,6 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
     _tabController.addListener(_handleTabChange);
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   int inicialIndex = ModalRoute.of(context)?.settings.arguments as int? ?? 0;
-  //   int tabLength = Provider.of<CategoryProvider>(context, listen: false)
-  //           .categories!
-  //           .length +
-  //       1;
-
-  //   if (inicialIndex == 0) {
-  //     _tabController = TabController(length: tabLength, vsync: this);
-  //   } else {
-  //     _tabController = TabController(
-  //         length: tabLength, vsync: this, initialIndex: inicialIndex);
-  //     final categoryProvider =
-  //         Provider.of<CategoryProvider>(context, listen: false);
-  //     // final productProvider =
-  //     //     Provider.of<ProductsProvider>(context, listen: false);
-
-  //     // productProvider.isLoading = true;
-  //     final category = categoryProvider.categories?[inicialIndex - 1];
-  //     Provider.of<ProductsProvider>(
-  //       context,
-  //     ).getAllByCategory(category!.id);
-  //   }
-  //   _tabController.addListener(_handleTabChange);
-  // }
-
   @override
   void dispose() {
     _tabController.removeListener(_handleTabChange);
@@ -107,7 +79,9 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
         [];
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.red),
+        title: const Text('Categorias'),
+        iconTheme: const IconThemeData(color: Colors.red),
+        titleTextStyle: const TextStyle(color: Colors.black, fontSize: 20),
         backgroundColor: Colors.white,
         actions: const [SearchButton(), HelpButton()],
         bottom: TabBar(
@@ -159,7 +133,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
           ...listWidgets,
         ],
       ),
-      bottomNavigationBar: const orden_list(),
+      bottomNavigationBar: const OrdenList(),
     );
   }
 }

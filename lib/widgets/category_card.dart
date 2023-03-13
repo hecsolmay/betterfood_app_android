@@ -14,7 +14,6 @@ class Categoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final id = index + 1;
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
