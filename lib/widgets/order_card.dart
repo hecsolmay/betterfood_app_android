@@ -1,5 +1,4 @@
 import 'package:betterfood_app_android/common/common.dart';
-import 'package:betterfood_app_android/pages/product_details.dart';
 import 'package:flutter/material.dart';
 
 import 'botones_count.dart';
@@ -73,6 +72,7 @@ class RowContain extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ImageBorder extends StatelessWidget {
   final String image;
   double? width;

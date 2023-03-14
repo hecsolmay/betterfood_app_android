@@ -1,4 +1,5 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
+import 'package:betterfood_app_android/dtos/providers/customprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/mesa_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/mesero_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
@@ -21,23 +22,23 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductsProvider()),
         ChangeNotifierProvider(create: (_) => WaiterProvider()),
         ChangeNotifierProvider(create: (_) => TableProvider()),
+        ChangeNotifierProvider(create: (_) => CustomIngredentsProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)),
-        initialRoute: '/login',
+        initialRoute: '/home',
         routes: {
           '/login': (context) => const Login(),
           '/home': (context) => const Home(),
           '/loginmesero': (context) => const LoginMesero(),
           '/loginmesa': (context) => const LoginMesa(),
-          '/categories': (context) => const Categories(),
+          // '/categories': (context) => const Categories(),
           '/order': (context) => const Order(),
         },
       ),
     );
   }
 }
-

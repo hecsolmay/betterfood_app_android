@@ -102,7 +102,9 @@ class _LoginMesaState extends State<LoginMesa> {
                               setState(() {
                                 qrMesa = cameraScanResult!;
                               });
-                              await Provider.of<TableProvider>(context, listen: false).getByIdTable(qrMesa);
+                              await Provider.of<TableProvider>(context,
+                                      listen: false)
+                                  .getByIdTable(qrMesa);
                               Navigator.pushReplacementNamed(context, '/home');
                             },
                             icon: const Icon(

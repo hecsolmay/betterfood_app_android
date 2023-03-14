@@ -33,7 +33,7 @@ class _ButtonsState extends State<Buttons> {
     return Row(
       children: [
         IconButton(
-          icon: Icon(Icons.remove_circle_outline,
+          icon: const Icon(Icons.remove_circle_outline,
               color: Color.fromRGBO(186, 0, 0, 1)),
           onPressed: _decrementCounter,
         ),
@@ -41,7 +41,8 @@ class _ButtonsState extends State<Buttons> {
         BigText(text: '$_counter'),
         const SizedBox(width: 0.5),
         IconButton(
-          icon: Icon(Icons.add_circle, color: Color.fromRGBO(186, 0, 0, 1)),
+          icon:
+              const Icon(Icons.add_circle, color: Color.fromRGBO(186, 0, 0, 1)),
           onPressed: _incrementCounter,
         ),
       ],

@@ -29,7 +29,9 @@ class ProductsCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetails(id: product.id),
+            builder: (context) => ProductDetails(
+              product: product,
+            ),
           ),
         );
       },
@@ -77,25 +79,20 @@ class RowContain extends StatelessWidget {
                   children: [
                     const Buttons(),
                     Container(
-                      height: 20,
-                      width: 20,
-                      decoration: const BoxDecoration(
-                        color: Color.fromRGBO(186, 0, 0, 1),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            bottomRight: Radius.circular(5)),
-                      ),
-                      child: IconButton(
-                        iconSize: 10.0,
-                       
-                        color: Colors.white,
-                        icon: const Icon(Icons.add),
-                        onPressed: (){
-
-                        },
-                        )
-                        
-                    )
+                        height: 20,
+                        width: 20,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(186, 0, 0, 1),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(5)),
+                        ),
+                        child: IconButton(
+                          iconSize: 10.0,
+                          color: Colors.white,
+                          icon: const Icon(Icons.add),
+                          onPressed: () {},
+                        ))
                   ],
                 ),
               ],
@@ -107,6 +104,7 @@ class RowContain extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ImageBorder extends StatelessWidget {
   final String image;
   double? width;
