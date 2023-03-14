@@ -164,3 +164,79 @@ class TabBody extends StatelessWidget {
     );
   }
 }
+
+/**
+ * Ejemplo de la paginacion
+ * 
+bool _isLoadingNextPage = false;
+
+@override
+Widget build(BuildContext context) {
+  return ListView.builder(
+    controller: _scrollController,
+    itemCount: itemsList.length + 1, // Agregar un elemento adicional para mostrar el indicador de progreso circular
+    itemBuilder: (BuildContext context, int index) {
+      // Verificar si el índice es igual al número de elementos en la lista, lo que indica que se debe mostrar el indicador de progreso circular
+      if (index == itemsList.length) {
+        // Verificar si se está cargando la siguiente página, en cuyo caso se muestra el indicador de progreso circular
+        if (_isLoadingNextPage) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          return SizedBox.shrink(); // Ocultar la vista del indicador de progreso circular
+        }
+      } else {
+        // Renderizar los elementos de la lista
+        return ListTile(
+          title: Text(itemsList[index]['title']),
+          subtitle: Text(itemsList[index]['subtitle']),
+        );
+      }
+    },  
+  );
+}
+
+void _fetchNextPage(String nextPageUrl) async {
+  // Establecer _isLoadingNextPage a true para mostrar el indicador de progreso circular
+  setState(() {
+    _isLoadingNextPage = true;
+  });
+
+  // Realizar la solicitud a la API con la página siguiente
+  final response = await http.get(nextPageUrl);
+
+  // Verificar si la solicitud fue exitosa
+  if (response.statusCode == 200) {
+    // Obtener los datos de la respuesta
+    final jsonData = jsonDecode(response.body);
+
+    // Actualizar la lista actual con los nuevos elementos
+    setState(() {
+      itemsList.addAll(jsonData['items']);
+    });
+
+    // Actualizar el objeto de proveedor con los nuevos datos
+    setState(() {
+      providerData = {
+        'limit': jsonData['limit'],
+        'currentPage': jsonData['currentPage'],
+        'nextPage': jsonData['nextPage'],
+        'prevPage': jsonData['prevPage'],
+        'next': jsonData['next'],
+        'prev': jsonData['prev'],
+        'totalPages': jsonData['totalPages']
+      };
+    });
+  } else {
+    throw Exception('Failed to fetch data');
+  }
+
+  // Establecer _isLoadingNextPage a false para ocultar el indicador de progreso circular
+  setState(() {
+    _isLoadingNextPage = false;
+  });
+}
+
+ * 
+ */
