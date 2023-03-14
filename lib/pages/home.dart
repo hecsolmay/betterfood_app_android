@@ -40,6 +40,11 @@ class _HomeState extends State<Home> {
     Provider.of<ProductsProvider>(context, listen: false).getAll();
   }
 
+  Future<void> refreshData() async {
+    Provider.of<CategoryProvider>(context, listen: false).refreshCategory();
+    Provider.of<ProductsProvider>(context, listen: false).refreshProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductsProvider>(context);
@@ -55,7 +60,7 @@ class _HomeState extends State<Home> {
       body: LayoutBuilder(
         builder: (context, constraints) => SafeArea(
           child: RefreshIndicator(
-            onRefresh: () => loadData(),
+            onRefresh: () => refreshData(),
             child: Column(
               children: [
                 Expanded(

@@ -1,6 +1,7 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
 import 'package:betterfood_app_android/widgets/buttons.dart';
+import 'package:betterfood_app_android/widgets/error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:betterfood_app_android/widgets/orden_list.dart';
@@ -39,7 +40,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
 
       productProvider.isLoading = true;
       final category = categoryProvider.categories?[inicialIndex - 1];
-      productProvider.getAllByCategory(category!.id);
+      productProvider.initGetAllByCategory(category!.id);
     }
     _tabController.addListener(_handleTabChange);
   }
@@ -74,7 +75,10 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
     final categoryProvider = Provider.of<CategoryProvider>(context);
     final productProvider = Provider.of<ProductsProvider>(context);
     final listWidgets = categoryProvider.categories?.map((e) {
-          return TabBody(productProvider: productProvider);
+          return TabBody(
+            productProvider: productProvider,
+            id: e.id,
+          );
         }).toList() ??
         [];
     return Scaffold(
@@ -142,25 +146,32 @@ class TabBody extends StatelessWidget {
   const TabBody({
     super.key,
     required this.productProvider,
+    required this.id,
   });
 
   final ProductsProvider productProvider;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     final products = productProvider.productsCategory;
-    return Expanded(
-      child: productProvider.isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.only(top: 25),
-              child: ListView.builder(
-                itemCount: products?.length,
-                itemBuilder: (context, index) => ProductsCard(
-                  product: products![index],
-                ),
-              ),
-            ),
+    return RefreshIndicator(
+      onRefresh: () => productProvider.getAllByCategory(id),
+      child: Expanded(
+        child: productProvider.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : productProvider.hasError
+                ? const ErrorMessage()
+                : Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: ListView.builder(
+                      itemCount: products?.length,
+                      itemBuilder: (context, index) => ProductsCard(
+                        product: products![index],
+                      ),
+                    ),
+                  ),
+      ),
     );
   }
 }

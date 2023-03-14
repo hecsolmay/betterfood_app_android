@@ -50,9 +50,71 @@ class ProductsProvider extends ChangeNotifier {
     return [];
   }
 
+  Future<dynamic> refreshProducts() async {
+    try {
+      isLoading = true;
+      hasError = false;
+      notifyListeners();
+      final url = "${Globals.apiURL}/api/m/product/";
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final List<dynamic> results = json["results"];
+        _products = results.map((e) => ProductResponseDto.fromJson(e)).toList();
+
+        logger.d(results);
+      } else {
+        logger.e("Failed to load Productss");
+        hasError = true;
+      }
+    } catch (e) {
+      hasError = true;
+      logger.e(e);
+    }
+
+    isLoading = false;
+    notifyListeners();
+
+    return [];
+  }
+
+  Future<dynamic> initGetAllByCategory(String id) async {
+    try {
+      isLoading = true;
+      logger.d(id);
+      final url = "${Globals.apiURL}/api/m/category/$id/products";
+      logger.d(url);
+      final response = await http.get(Uri.parse(url));
+      logger.d(response.statusCode);
+      logger.d(response.body);
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final List<dynamic> results = json["results"];
+        _productsCategory =
+            results.map((e) => ProductResponseDto.fromJson(e)).toList();
+
+        logger.d(results);
+      } else {
+        logger.e("Failed to load Productss");
+        hasError = true;
+      }
+    } catch (e) {
+      hasError = true;
+      logger.e(e);
+    }
+
+    isLoading = false;
+    notifyListeners();
+
+    return [];
+  }
+
   Future<dynamic> getAllByCategory(String id) async {
     try {
       isLoading = true;
+      hasError = false;
       notifyListeners();
       logger.d(id);
       final url = "${Globals.apiURL}/api/m/category/$id/products";

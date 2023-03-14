@@ -41,4 +41,35 @@ class CategoryProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  Future refreshCategory() async {
+    try {
+      isLoading = true;
+      hasError = false;
+      notifyListeners();
+
+      final response =
+          await http.get(Uri.parse('${Globals.apiURL}/api/m/category'));
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final List<dynamic> results = json['results'];
+        _categories =
+            results.map((e) => CategoryResponseDto.fromMap(e)).toList();
+
+        logger.d(results);
+      } else {
+        // If the server did not return a 200 OK response,
+        // then throw an exception.
+        logger.e("Failed to load album");
+        hasError = true;
+      }
+    } catch (e) {
+      logger.e(e);
+      hasError = true;
+    }
+
+    isLoading = false;
+    notifyListeners();
+  }
 }
