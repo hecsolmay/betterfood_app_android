@@ -25,7 +25,6 @@ class CategoryProvider extends ChangeNotifier {
         final List<dynamic> results = json['results'];
         _categories =
             results.map((e) => CategoryResponseDto.fromMap(e)).toList();
-        isLoading = false;
 
         logger.d(results);
 
@@ -39,5 +38,6 @@ class CategoryProvider extends ChangeNotifier {
     } catch (e) {
       logger.e(e);
     }
+        isLoading = false;
   }
 }
