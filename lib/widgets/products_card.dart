@@ -16,8 +16,12 @@ class ProductsCard extends StatelessWidget {
         padding: const EdgeInsets.only(right: 20, left: 20),
         child: Card(
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+          ),
           child: RowContain(
+            id: product.id,
             name: product.name,
             description: product.description,
             imageUrl: product.imgUrl,
@@ -39,7 +43,8 @@ class ProductsCard extends StatelessWidget {
   }
 }
 
-class RowContain extends StatelessWidget {
+class RowContain extends StatefulWidget {
+  final String id;
   final String name;
   final String description;
   final int price;
@@ -50,7 +55,29 @@ class RowContain extends StatelessWidget {
     required this.description,
     required this.price,
     required this.imageUrl,
+    required this.id,
   }) : super(key: key);
+
+  @override
+  State<RowContain> createState() => _RowContainState();
+}
+
+class _RowContainState extends State<RowContain> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      if (_counter > 0) {
+        _counter--;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +87,7 @@ class RowContain extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           ImageBorder(
-            image: imageUrl,
+            image: widget.imageUrl,
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -68,31 +95,52 @@ class RowContain extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 10),
-                BigText(text: name),
+                BigText(text: widget.name),
                 const SizedBox(height: 10),
-                Paragraph(text: description, maxLines: 3),
+                Paragraph(text: widget.description, maxLines: 3),
                 const SizedBox(height: 10),
-                PriceText(text: '\$$price', size: 14),
+                PriceText(text: '\$${widget.price}', size: 14),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Buttons(),
-                    Container(
-                        height: 20,
-                        width: 20,
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(186, 0, 0, 1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              bottomRight: Radius.circular(5)),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.remove_circle_outline,
+                              color: Color.fromRGBO(186, 0, 0, 1)),
+                          onPressed: _decrementCounter,
                         ),
-                        child: IconButton(
-                          iconSize: 10.0,
-                          color: Colors.white,
-                          icon: const Icon(Icons.add),
-                          onPressed: () {},
-                        ))
+                        const SizedBox(width: 0.5),
+                        BigText(text: '$_counter'),
+                        const SizedBox(width: 0.5),
+                        IconButton(
+                          icon: const Icon(Icons.add_circle,
+                              color: Color.fromRGBO(186, 0, 0, 1)),
+                          onPressed: _incrementCounter,
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 20,
+                      width: 20,
+                      decoration: const BoxDecoration(
+                        color: Color.fromRGBO(186, 0, 0, 1),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          bottomRight: Radius.circular(5),
+                        ),
+                      ),
+                      child: IconButton(
+                        iconSize: 10.0,
+                        color: Colors.white,
+                        icon: const Icon(Icons.add),
+                        onPressed: () {
+                          print(
+                              'El Producto ${widget.id} se pidio una cantidad de $_counter');
+                        },
+                      ),
+                    )
                   ],
                 ),
               ],

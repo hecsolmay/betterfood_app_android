@@ -35,7 +35,7 @@ class Categoria extends StatelessWidget {
             bottom: 0,
             child: Container(
               height: 38,
-              width: 160,
+              width: MediaQuery.of(context).size.width / 2.2,
               decoration:
                   const BoxDecoration(color: Color.fromARGB(172, 13, 14, 13)),
               child: Padding(
