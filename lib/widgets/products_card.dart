@@ -11,40 +11,32 @@ class ProductsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Padding(
-        padding: const EdgeInsets.only(right: 20, left: 20),
-        child: Card(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
-          ),
-          child: RowContain(
-            id: product.id,
-            name: product.name,
-            description: product.description,
-            imageUrl: product.imgUrl,
-            price: product.price,
-          ),
-        ),
+    return Card(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: RowContain(
+        product: product,
+        name: product.name,
+        description: product.description,
+        imageUrl: product.imgUrl,
+        price: product.price,
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetails(
-              product: product,
-            ),
-          ),
-        );
-      },
+      // onTap: () {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => ProductDetails(
+      //         product: product,
+      //       ),
+      //     ),
+      //   );
+      // },
     );
   }
 }
 
 class RowContain extends StatefulWidget {
-  final String id;
+  final ProductResponseDto product;
   final String name;
   final String description;
   final int price;
@@ -55,7 +47,7 @@ class RowContain extends StatefulWidget {
     required this.description,
     required this.price,
     required this.imageUrl,
-    required this.id,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -86,21 +78,49 @@ class _RowContainState extends State<RowContain> {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          ImageBorder(
-            image: widget.imageUrl,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetails(
+                    product: widget.product,
+                  ),
+                ),
+              );
+            },
+            child: ImageBorder(
+              image: widget.imageUrl,
+            ),
           ),
           const SizedBox(width: 15),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 10),
-                BigText(text: widget.name),
-                const SizedBox(height: 10),
-                Paragraph(text: widget.description, maxLines: 3),
-                const SizedBox(height: 10),
-                PriceText(text: '\$${widget.price}', size: 14),
-                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetails(
+                          product: widget.product,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: 10),
+                      BigText(text: widget.name),
+                      const SizedBox(height: 10),
+                      Paragraph(text: widget.description, maxLines: 3),
+                      const SizedBox(height: 10),
+                      PriceText(text: '\$${widget.price}', size: 14),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -121,24 +141,28 @@ class _RowContainState extends State<RowContain> {
                         ),
                       ],
                     ),
-                    Container(
-                      height: 20,
-                      width: 20,
-                      decoration: const BoxDecoration(
-                        color: Color.fromRGBO(186, 0, 0, 1),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          bottomRight: Radius.circular(5),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Lógica para manejar el evento de toque del botón
+                      },
+                      style: ButtonStyle(
+                        minimumSize:
+                            MaterialStateProperty.all<Size>(const Size(10, 30)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color.fromRGBO(186, 0, 0, 1)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(5),
+                            ),
+                          ),
                         ),
                       ),
-                      child: IconButton(
-                        iconSize: 10.0,
+                      child: const Icon(
+                        Icons.add,
                         color: Colors.white,
-                        icon: const Icon(Icons.add),
-                        onPressed: () {
-                          print(
-                              'El Producto ${widget.id} se pidio una cantidad de $_counter');
-                        },
                       ),
                     )
                   ],
