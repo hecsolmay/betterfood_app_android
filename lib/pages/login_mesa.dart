@@ -102,10 +102,13 @@ class _LoginMesaState extends State<LoginMesa> {
                               setState(() {
                                 qrMesa = cameraScanResult!;
                               });
-                              await Provider.of<TableProvider>(context,
-                                      listen: false)
-                                  .getByIdTable(qrMesa);
-                              Navigator.pushReplacementNamed(context, '/home');
+                              // Validar el ID del mesero
+                                 await tableprovider.getByIdTable(qrMesa);
+                                if (tableprovider.found) {
+                                  Navigator.pushNamed(context, '/home');
+                                } else {
+                                  AlertNotFound(context);
+                                }
                             },
                             icon: const Icon(
                               Icons.camera,
