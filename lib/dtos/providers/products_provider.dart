@@ -4,6 +4,7 @@ import 'package:betterfood_app_android/common/globals.dart';
 import 'package:betterfood_app_android/dtos/response/productdetailresponse.dart';
 import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:flutter/material.dart';
+import 'package:betterfood_app_android/dtos/response/info_response.dart';
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,8 +14,11 @@ class ProductsProvider extends ChangeNotifier {
   final logger = Logger();
 
   List<ProductResponseDto>? _products = [];
+  InfoResponseData? info;
   List<ProductResponseDto>? _productsCategory = [];
+  InfoResponseData? infoCategory;
   List<ProductResponseDto> _productsSearched = [];
+  InfoResponseData? infoSearched;
 
   ProductDetailResponseDto? _productdetail;
   ProductDetailResponseDto? get productdetail => _productdetail;
@@ -33,7 +37,8 @@ class ProductsProvider extends ChangeNotifier {
         final json = jsonDecode(response.body);
         final List<dynamic> results = json["results"];
         _products = results.map((e) => ProductResponseDto.fromJson(e)).toList();
-
+        final dynamic jsonInfo = json["info"];
+        info = InfoResponseData.fromJson(jsonInfo);
         logger.d(results);
       } else {
         logger.e("Failed to load Productss");
@@ -62,6 +67,8 @@ class ProductsProvider extends ChangeNotifier {
         final json = jsonDecode(response.body);
         final List<dynamic> results = json["results"];
         _products = results.map((e) => ProductResponseDto.fromJson(e)).toList();
+        final dynamic jsonInfo = json["info"];
+        info = InfoResponseData.fromJson(jsonInfo);
 
         logger.d(results);
       } else {
@@ -94,7 +101,8 @@ class ProductsProvider extends ChangeNotifier {
         final List<dynamic> results = json["results"];
         _productsCategory =
             results.map((e) => ProductResponseDto.fromJson(e)).toList();
-
+        final dynamic jsonInfo = json["info"];
+        infoCategory = InfoResponseData.fromJson(jsonInfo);
         logger.d(results);
       } else {
         logger.e("Failed to load Productss");
@@ -128,6 +136,8 @@ class ProductsProvider extends ChangeNotifier {
         final List<dynamic> results = json["results"];
         _productsCategory =
             results.map((e) => ProductResponseDto.fromJson(e)).toList();
+        final dynamic jsonInfo = json["info"];
+        infoCategory = InfoResponseData.fromJson(jsonInfo);
 
         logger.d(results);
       } else {
@@ -173,6 +183,7 @@ class ProductsProvider extends ChangeNotifier {
   Future<dynamic> getSearch(String query) async {
     try {
       isLoading = true;
+      notifyListeners();
       final url = "${Globals.apiURL}/api/m/product?q=$query";
       final response = await http.get(Uri.parse(url));
 
@@ -181,6 +192,9 @@ class ProductsProvider extends ChangeNotifier {
         final List<dynamic> results = json["results"];
         _productsSearched =
             results.map((e) => ProductResponseDto.fromJson(e)).toList();
+
+        final dynamic jsonInfo = json["info"];
+        infoSearched = InfoResponseData.fromJson(jsonInfo);
 
         logger.d('Busqueda Ok');
         logger.d(response.body);
