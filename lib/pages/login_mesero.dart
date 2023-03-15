@@ -87,11 +87,13 @@ class _LoginMeseroState extends State<LoginMesero> {
                                 setState(() {
                                   qrMesero = cameraScanResult!;
                                 });
-                                await Provider.of<WaiterProvider>(context,
-                                        listen: false)
-                                    .getByIdWaiter(qrMesero);
-                                Navigator.pushReplacementNamed(
-                                    context, '/loginmesa');
+                                 // Validar el ID del mesero
+                                 await waiterprovider.getByIdWaiter(qrMesero);
+                                if (waiterprovider.found) {
+                                  Navigator.pushNamed(context, '/loginmesa');
+                                } else {
+                                  alertNotFound(context);
+                                }
                               },
                               icon: const Icon(
                                 Icons.camera,
