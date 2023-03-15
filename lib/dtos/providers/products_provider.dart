@@ -10,12 +10,13 @@ import 'package:http/http.dart' as http;
 
 class ProductsProvider extends ChangeNotifier {
   bool isLoading = false;
+  bool isLoadingNextPage = false;
   bool hasError = false;
   final logger = Logger();
 
-  List<ProductResponseDto>? _products = [];
+  List<ProductResponseDto> _products = [];
   InfoResponseData? info;
-  List<ProductResponseDto>? _productsCategory = [];
+  List<ProductResponseDto> _productsCategory = [];
   InfoResponseData? infoCategory;
   List<ProductResponseDto> _productsSearched = [];
   InfoResponseData? infoSearched;
@@ -23,8 +24,8 @@ class ProductsProvider extends ChangeNotifier {
   ProductDetailResponseDto? _productdetail;
   ProductDetailResponseDto? get productdetail => _productdetail;
 
-  List<ProductResponseDto>? get products => _products;
-  List<ProductResponseDto>? get productsCategory => _productsCategory;
+  List<ProductResponseDto> get products => _products;
+  List<ProductResponseDto> get productsCategory => _productsCategory;
   List<ProductResponseDto>? get productsSearched => _productsSearched;
 
   Future<dynamic> getAll() async {
@@ -53,6 +54,35 @@ class ProductsProvider extends ChangeNotifier {
     notifyListeners();
 
     return [];
+  }
+
+  Future<dynamic> getPaginate(int nextPage) async {
+    isLoadingNextPage = true;
+    hasError = false;
+    logger.d(nextPage);
+    notifyListeners();
+    final url = '${Globals.apiURL}/api/m/product?page=$nextPage';
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final List<dynamic> results = json['results'];
+        final newProducts =
+            results.map((e) => ProductResponseDto.fromJson(e)).toList();
+        _products.addAll(newProducts);
+        final dynamic jsonInfo = json['info'];
+        info = InfoResponseData.fromJson(jsonInfo);
+        logger.d(results);
+      } else {
+        hasError = true;
+      }
+    } catch (e) {
+      logger.e(e);
+      hasError = true;
+    }
+    isLoadingNextPage = false;
+    notifyListeners();
   }
 
   Future<dynamic> refreshProducts() async {
@@ -150,6 +180,44 @@ class ProductsProvider extends ChangeNotifier {
     }
 
     isLoading = false;
+    notifyListeners();
+
+    return [];
+  }
+
+  Future<dynamic> getProductsCategoryPaginate(String id, int nextPage) async {
+    try {
+      isLoadingNextPage = true;
+      hasError = false;
+      notifyListeners();
+      logger.d(id);
+      final url =
+          "${Globals.apiURL}/api/m/category/$id/products?page=$nextPage";
+      logger.d(url);
+      final response = await http.get(Uri.parse(url));
+      logger.d(response.statusCode);
+      logger.d(response.body);
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        final List<dynamic> results = json["results"];
+        final newProducts =
+            results.map((e) => ProductResponseDto.fromJson(e)).toList();
+        final dynamic jsonInfo = json["info"];
+        _productsCategory.addAll(newProducts);
+        infoCategory = InfoResponseData.fromJson(jsonInfo);
+
+        logger.d(results);
+      } else {
+        logger.e("Failed to load Productss");
+        hasError = true;
+      }
+    } catch (e) {
+      hasError = true;
+      logger.e(e);
+    }
+
+    isLoadingNextPage = false;
     notifyListeners();
 
     return [];

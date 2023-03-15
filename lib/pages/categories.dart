@@ -81,6 +81,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
           );
         }).toList() ??
         [];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Categorias'),
@@ -123,13 +124,35 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: ListView.builder(
-                      itemCount: productProvider.products?.length,
-                      itemBuilder: (context, index) => ProductsCard(
-                        product: productProvider.products![index],
+              : RefreshIndicator(
+                  onRefresh: () => productProvider.refreshProducts(),
+                  child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: ListView.builder(
+                        itemCount: productProvider.products.length + 1,
+                        itemBuilder: (context, index) {
+                          if (index == productProvider.products.length) {
+                            final hasNext = productProvider.info?.next ?? false;
+                            if (hasNext) {
+                              productProvider.getPaginate(
+                                  productProvider.info!.currentPage! + 1);
+                              return const Padding(
+                                padding:
+                                    EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          } else {
+                            return ProductsCard(
+                              product: productProvider.products[index],
+                            ); // Ocultar la vista del indicador de progreso circular
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -165,17 +188,63 @@ class TabBody extends StatelessWidget {
                 : Padding(
                     padding: const EdgeInsets.only(top: 25),
                     child: ListView.builder(
-                      itemCount: products?.length,
-                      itemBuilder: (context, index) => ProductsCard(
-                        product: products![index],
-                      ),
+                      itemCount: products.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == products.length) {
+                          final hasNext =
+                              productProvider.infoCategory?.next ?? false;
+                          if (hasNext) {
+                            productProvider.getProductsCategoryPaginate(id,
+                                productProvider.infoCategory!.currentPage! + 1);
+                            return const Padding(
+                              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          } else {
+                            return const SizedBox.shrink();
+                          }
+                        } else {
+                          return ProductsCard(
+                            product: products[index],
+                          );
+                        }
+                      },
                     ),
                   ),
       ),
     );
   }
 }
-
+/**
+ *  child: ListView.builder(
+                        itemCount: productProvider.products.length + 1,
+                        itemBuilder: (context, index) {
+                          if (index == productProvider.products.length) {
+                            final hasNext = productProvider.info?.next ?? false;
+                            if (hasNext) {
+                              productProvider.getPaginate(
+                                  productProvider.info!.currentPage! + 1);
+                              return const Padding(
+                                padding:
+                                    EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          } else {
+                            return ProductsCard(
+                              product: productProvider.products[index],
+                            ); // Ocultar la vista del indicador de progreso circular
+                          }
+                        },
+                      ),
+ * 
+ */
 /**
  * Ejemplo de la paginacion
  * 

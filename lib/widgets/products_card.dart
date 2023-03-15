@@ -21,16 +21,6 @@ class ProductsCard extends StatelessWidget {
         imageUrl: product.imgUrl,
         price: product.price,
       ),
-      // onTap: () {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => ProductDetails(
-      //         product: product,
-      //       ),
-      //     ),
-      //   );
-      // },
     );
   }
 }
@@ -69,6 +59,10 @@ class _RowContainState extends State<RowContain> {
         _counter--;
       }
     });
+  }
+
+  void _resetCounter() {
+    setState(() => _counter = 0);
   }
 
   @override
@@ -143,7 +137,11 @@ class _RowContainState extends State<RowContain> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // Lógica para manejar el evento de toque del botón
+                        if (_counter > 0) {
+                          print(
+                              'el producto fue producto ${widget.product.id} un total de $_counter');
+                          _resetCounter();
+                        }
                       },
                       style: ButtonStyle(
                         minimumSize:

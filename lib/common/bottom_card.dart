@@ -1,11 +1,39 @@
 import 'package:betterfood_app_android/common/common.dart';
+import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/botones_count.dart';
 
-class BottomCard extends StatelessWidget {
-  final int price;
-  const BottomCard({super.key, this.price = 340});
+class BottomCard extends StatefulWidget {
+  final ProductResponseDto product;
+  const BottomCard({super.key, required this.product});
+
+  @override
+  State<BottomCard> createState() => _BottomCardState();
+}
+
+class _BottomCardState extends State<BottomCard> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decrementCounter() {
+    setState(() {
+      if (_counter > 0) {
+        _counter--;
+      }
+    });
+  }
+
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +58,42 @@ class BottomCard extends StatelessWidget {
               color: Colors.white,
             ),
             child: Row(
-              children: const [Buttons()],
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.remove_circle_outline,
+                          color: Color.fromRGBO(186, 0, 0, 1)),
+                      onPressed: _decrementCounter,
+                    ),
+                    const SizedBox(width: 0.5),
+                    BigText(text: '$_counter'),
+                    const SizedBox(width: 0.5),
+                    IconButton(
+                      icon: const Icon(Icons.add_circle,
+                          color: Color.fromRGBO(186, 0, 0, 1)),
+                      onPressed: _incrementCounter,
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
           GestureDetector(
-            onTap: () => Navigator.pop(context),
+            onTap: () {
+              if (_counter > 0) {
+                print(
+                    'agregando el producto ${widget.product.id} la cantidad de $_counter');
+                Navigator.pop(context);
+              }
+            },
             child: Container(
               padding:
                   const EdgeInsets.only(top: 13, bottom: 13, left: 7, right: 7),
               decoration: BoxDecoration(
                   color: Colors.red, borderRadius: BorderRadius.circular(10)),
               child: BigText(
-                text: "\$$price  Agregar A la Orden",
+                text: "\$${widget.product.price}  Agregar A la Orden",
                 color: Colors.white,
                 size: 13,
               ),

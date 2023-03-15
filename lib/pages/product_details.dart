@@ -134,7 +134,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           )
         ],
       ),
-      bottomNavigationBar: BottomCard(price: product.price),
+      bottomNavigationBar: BottomCard(product: product),
     );
   }
 }
