@@ -1,7 +1,9 @@
 import 'package:betterfood_app_android/common/common.dart';
+import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
 import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:betterfood_app_android/pages/product_details.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'botones_count.dart';
 
@@ -11,15 +13,19 @@ class ProductsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: RowContain(
-        product: product,
-        name: product.name,
-        description: product.description,
-        imageUrl: product.imgUrl,
-        price: product.price,
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      child: Card(
+        shadowColor: Color.fromARGB(255, 201, 38, 38),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        child: RowContain(
+          product: product,
+          name: product.name,
+          description: product.description,
+          imageUrl: product.imgUrl,
+          price: product.price,
+        ),
       ),
     );
   }
@@ -67,6 +73,7 @@ class _RowContainState extends State<RowContain> {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrdersProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(right: 15),
       child: Row(
@@ -138,6 +145,13 @@ class _RowContainState extends State<RowContain> {
                     ElevatedButton(
                       onPressed: () {
                         if (_counter > 0) {
+                          final productAdd = Product(
+                              product: widget.product,
+                              extras: [],
+                              remove: [],
+                              quantity: _counter);
+
+                          orderProvider.addProduct(productAdd);
                           print(
                               'el producto fue producto ${widget.product.id} un total de $_counter');
                           _resetCounter();

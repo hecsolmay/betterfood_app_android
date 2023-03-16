@@ -22,24 +22,20 @@ class _ProductDetailsState extends State<ProductDetails> {
   void initState() {
     super.initState();
 
-    Provider.of<ProductsProvider>(context, listen: false)
-        .getById(widget.product.id);
     Provider.of<CustomIngredentsProvider>(context, listen: false).resetState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductsProvider>(context);
-    final productdetail = productProvider.productdetail;
+    // final productProvider = Provider.of<ProductsProvider>(context);
+    // final productdetail = productProvider.productdetail;
     final product = widget.product;
 
-    final requiredIngredents =
-        productdetail?.ingredents.where((e) => e.required);
-    final extraIngredents = productdetail?.ingredents
-        .where((e) => !e.required && e.extraPrice != 0);
-    final removeIngredents = productdetail?.ingredents
-            .where((e) => !e.required && e.extraPrice == 0) ??
-        [];
+    final requiredIngredents = product.ingredents.where((e) => e.required);
+    final extraIngredents =
+        product.ingredents.where((e) => !e.required && e.extraPrice != 0);
+    final removeIngredents =
+        product.ingredents.where((e) => !e.required && e.extraPrice == 0);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -101,33 +97,28 @@ class _ProductDetailsState extends State<ProductDetails> {
                     decoration:
                         BoxDecoration(color: Colors.black.withOpacity(0.5)),
                   ),
-                  productProvider.isLoading
-                      ? const SizedBox(
-                          height: 300,
-                          child: Center(child: CircularProgressIndicator()),
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            productdetail!.ingredents.isNotEmpty
-                                ? IngredentsList(
-                                    ingredents: requiredIngredents,
-                                    text: "Ingredientes",
-                                  )
-                                : const SizedBox(),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            extraIngredents!.isNotEmpty
-                                ? ListExtraIngredents(
-                                    extraIngredents: extraIngredents)
-                                : const SizedBox(),
-                            removeIngredents.isNotEmpty
-                                ? ListRemoveIngredents(
-                                    removeIngredents: removeIngredents)
-                                : const SizedBox(),
-                          ],
-                        )
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      product.ingredents.isNotEmpty
+                          ? IngredentsList(
+                              ingredents: requiredIngredents,
+                              text: "Ingredientes",
+                            )
+                          : const SizedBox(),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      extraIngredents.isNotEmpty
+                          ? ListExtraIngredents(
+                              extraIngredents: extraIngredents)
+                          : const SizedBox(),
+                      removeIngredents.isNotEmpty
+                          ? ListRemoveIngredents(
+                              removeIngredents: removeIngredents)
+                          : const SizedBox(),
+                    ],
+                  )
                 ],
               ),
             ),

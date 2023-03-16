@@ -1,5 +1,6 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
+import 'package:betterfood_app_android/pages/order.dart';
 import 'package:betterfood_app_android/widgets/buttons.dart';
 import 'package:betterfood_app_android/widgets/error_message.dart';
 import 'package:flutter/material.dart';
@@ -126,41 +127,50 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
                 )
               : RefreshIndicator(
                   onRefresh: () => productProvider.refreshProducts(),
-                  child: Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 25),
-                      child: ListView.builder(
-                        itemCount: productProvider.products.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == productProvider.products.length) {
-                            final hasNext = productProvider.info?.next ?? false;
-                            if (hasNext) {
-                              productProvider.getPaginate(
-                                  productProvider.info!.currentPage! + 1);
-                              return const Padding(
-                                padding:
-                                    EdgeInsets.only(top: 10.0, bottom: 10.0),
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: ListView.builder(
+                          itemCount: productProvider.products.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == productProvider.products.length) {
+                              final hasNext =
+                                  productProvider.info?.next ?? false;
+                              if (hasNext) {
+                                productProvider.getPaginate(
+                                    productProvider.info!.currentPage! + 1);
+                                return const Padding(
+                                  padding:
+                                      EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
                             } else {
-                              return const SizedBox.shrink();
+                              return ProductsCard(
+                                product: productProvider.products[index],
+                              );
                             }
-                          } else {
-                            return ProductsCard(
-                              product: productProvider.products[index],
-                            ); // Ocultar la vista del indicador de progreso circular
-                          }
-                        },
+                          },
+                        ),
                       ),
-                    ),
+                      const Positioned(
+                        // Ubicar el FloatingActionButton en la esquina inferior derecha
+                        bottom: 30,
+                        right: 20,
+                        child: ShoppingCartButton(),
+                      ),
+                    ],
                   ),
                 ),
           ...listWidgets,
         ],
       ),
-      bottomNavigationBar: const OrdenList(),
+      // bottomNavigationBar: const OrdenList(),
     );
   }
 }
@@ -180,143 +190,54 @@ class TabBody extends StatelessWidget {
     final products = productProvider.productsCategory;
     return RefreshIndicator(
       onRefresh: () => productProvider.getAllByCategory(id),
-      child: Expanded(
-        child: productProvider.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : productProvider.hasError
-                ? const ErrorMessage()
-                : Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: ListView.builder(
-                      itemCount: products.length + 1,
-                      itemBuilder: (context, index) {
-                        if (index == products.length) {
-                          final hasNext =
-                              productProvider.infoCategory?.next ?? false;
-                          if (hasNext) {
-                            productProvider.getProductsCategoryPaginate(id,
-                                productProvider.infoCategory!.currentPage! + 1);
-                            return const Padding(
-                              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            );
-                          } else {
-                            return const SizedBox.shrink();
-                          }
-                        } else {
-                          return ProductsCard(
-                            product: products[index],
-                          );
-                        }
-                      },
-                    ),
+      child: productProvider.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : productProvider.hasError
+              ? const ErrorMessage()
+              : RefreshIndicator(
+                  onRefresh: () => productProvider.refreshProducts(),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: ListView.builder(
+                          itemCount: products.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == products.length) {
+                              final hasNext =
+                                  productProvider.infoCategory?.next ?? false;
+                              if (hasNext) {
+                                productProvider.getProductsCategoryPaginate(
+                                    id,
+                                    productProvider.infoCategory!.currentPage! +
+                                        1);
+                                return const Padding(
+                                  padding:
+                                      EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            } else {
+                              return ProductsCard(
+                                product: products[index],
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                      const Positioned(
+                        // Ubicar el FloatingActionButton en la esquina inferior derecha
+                        bottom: 30,
+                        right: 20,
+                        child: ShoppingCartButton(),
+                      ),
+                    ],
                   ),
-      ),
+                ),
     );
   }
 }
-/**
- *  child: ListView.builder(
-                        itemCount: productProvider.products.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == productProvider.products.length) {
-                            final hasNext = productProvider.info?.next ?? false;
-                            if (hasNext) {
-                              productProvider.getPaginate(
-                                  productProvider.info!.currentPage! + 1);
-                              return const Padding(
-                                padding:
-                                    EdgeInsets.only(top: 10.0, bottom: 10.0),
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            } else {
-                              return const SizedBox.shrink();
-                            }
-                          } else {
-                            return ProductsCard(
-                              product: productProvider.products[index],
-                            ); // Ocultar la vista del indicador de progreso circular
-                          }
-                        },
-                      ),
- * 
- */
-/**
- * Ejemplo de la paginacion
- * 
-bool _isLoadingNextPage = false;
-
-@override
-Widget build(BuildContext context) {
-  return ListView.builder(
-    controller: _scrollController,
-    itemCount: itemsList.length + 1, // Agregar un elemento adicional para mostrar el indicador de progreso circular
-    itemBuilder: (BuildContext context, int index) {
-      // Verificar si el índice es igual al número de elementos en la lista, lo que indica que se debe mostrar el indicador de progreso circular
-      if (index == itemsList.length) {
-        // Verificar si se está cargando la siguiente página, en cuyo caso se muestra el indicador de progreso circular
-        if (_isLoadingNextPage) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return SizedBox.shrink(); // Ocultar la vista del indicador de progreso circular
-        }
-      } else {
-        // Renderizar los elementos de la lista
-        return ListTile(
-          title: Text(itemsList[index]['title']),
-          subtitle: Text(itemsList[index]['subtitle']),
-        );
-      }
-    },  
-  );
-}
-
-void _fetchNextPage(String nextPageUrl) async {
-  // Establecer _isLoadingNextPage a true para mostrar el indicador de progreso circular
-  setState(() {
-    _isLoadingNextPage = true;
-  });
-
-  // Realizar la solicitud a la API con la página siguiente
-  final response = await http.get(nextPageUrl);
-
-  // Verificar si la solicitud fue exitosa
-  if (response.statusCode == 200) {
-    // Obtener los datos de la respuesta
-    final jsonData = jsonDecode(response.body);
-
-    // Actualizar la lista actual con los nuevos elementos
-    setState(() {
-      itemsList.addAll(jsonData['items']);
-    });
-
-    // Actualizar el objeto de proveedor con los nuevos datos
-    setState(() {
-      providerData = {
-        'limit': jsonData['limit'],
-        'currentPage': jsonData['currentPage'],
-        'nextPage': jsonData['nextPage'],
-        'prevPage': jsonData['prevPage'],
-        'next': jsonData['next'],
-        'prev': jsonData['prev'],
-        'totalPages': jsonData['totalPages']
-      };
-    });
-  } else {
-    throw Exception('Failed to fetch data');
-  }
-
-  // Establecer _isLoadingNextPage a false para ocultar el indicador de progreso circular
-  setState(() {
-    _isLoadingNextPage = false;
-  });
-}
-
- * 
- */

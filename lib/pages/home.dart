@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
                                       children: [
                                         CarouselSlider(
                                           items: productProvider.products
-                                              ?.map((e) => CardSlider(
+                                              .map((e) => CardSlider(
                                                   urlImage: e.imgUrl))
                                               .toList(),
                                           options: _carruselOptions,

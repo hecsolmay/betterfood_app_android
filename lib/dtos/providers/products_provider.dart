@@ -21,8 +21,8 @@ class ProductsProvider extends ChangeNotifier {
   List<ProductResponseDto> _productsSearched = [];
   InfoResponseData? infoSearched;
 
-  ProductDetailResponseDto? _productdetail;
-  ProductDetailResponseDto? get productdetail => _productdetail;
+  // ProductDetailResponseDto? _productdetail;
+  // ProductDetailResponseDto? get productdetail => _productdetail;
 
   List<ProductResponseDto> get products => _products;
   List<ProductResponseDto> get productsCategory => _productsCategory;
@@ -223,30 +223,30 @@ class ProductsProvider extends ChangeNotifier {
     return [];
   }
 
-  Future<dynamic> getById(String id) async {
-    try {
-      isLoading = true;
-      final url = "${Globals.apiURL}/api/m/product/$id";
-      final response = await http.get(Uri.parse(url));
+  // Future<dynamic> getById(String id) async {
+  //   try {
+  //     isLoading = true;
+  //     final url = "${Globals.apiURL}/api/m/product/$id";
+  //     final response = await http.get(Uri.parse(url));
 
-      if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
-        final dynamic results = json["results"];
-        _productdetail = ProductDetailResponseDto.fromJson(results);
+  //     if (response.statusCode == 200) {
+  //       final json = jsonDecode(response.body);
+  //       final dynamic results = json["results"];
+  //       _productdetail = ProductDetailResponseDto.fromJson(results);
 
-        logger.d(response.body);
-      } else {
-        logger.e("Failed to load Product");
-        hasError = true;
-      }
-    } catch (e) {
-      logger.e(e);
-      hasError = true;
-    }
-    isLoading = false;
-    notifyListeners();
-    return [];
-  }
+  //       logger.d(response.body);
+  //     } else {
+  //       logger.e("Failed to load Product");
+  //       hasError = true;
+  //     }
+  //   } catch (e) {
+  //     logger.e(e);
+  //     hasError = true;
+  //   }
+  //   isLoading = false;
+  //   notifyListeners();
+  //   return [];
+  // }
 
   Future<dynamic> getSearch(String query) async {
     try {

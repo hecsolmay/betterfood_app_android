@@ -1,8 +1,9 @@
 import 'package:betterfood_app_android/common/common.dart';
+import 'package:betterfood_app_android/dtos/providers/customprovider.dart';
+import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
 import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/botones_count.dart';
+import 'package:provider/provider.dart';
 
 class BottomCard extends StatefulWidget {
   final ProductResponseDto product;
@@ -37,6 +38,8 @@ class _BottomCardState extends State<BottomCard> {
 
   @override
   Widget build(BuildContext context) {
+    final ingredentsProvider = Provider.of<CustomIngredentsProvider>(context);
+    final ordersProvider = Provider.of<OrdersProvider>(context);
     return Container(
       height: 70,
       padding: const EdgeInsets.only(left: 25, right: 25),
@@ -82,6 +85,13 @@ class _BottomCardState extends State<BottomCard> {
           GestureDetector(
             onTap: () {
               if (_counter > 0) {
+                final productAdd = Product(
+                    product: widget.product,
+                    extras: ingredentsProvider.extras,
+                    remove: ingredentsProvider.remove,
+                    quantity: _counter);
+
+                ordersProvider.addProduct(productAdd);
                 print(
                     'agregando el producto ${widget.product.id} la cantidad de $_counter');
                 Navigator.pop(context);

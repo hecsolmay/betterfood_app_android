@@ -4,6 +4,9 @@ class CustomIngredentsProvider extends ChangeNotifier {
   List<String> _extras = [];
   List<String> _remove = [];
 
+  List<String> get extras => _extras;
+  List<String> get remove => _remove;
+
   void addExtra(String id) {
     _extras.add(id);
     notifyListeners();

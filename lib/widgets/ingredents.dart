@@ -1,5 +1,6 @@
 import 'package:betterfood_app_android/dtos/providers/customprovider.dart';
-import 'package:betterfood_app_android/dtos/response/productdetailresponse.dart';
+// import 'package:betterfood_app_android/dtos/response/productdetailresponse.dart';
+import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:flutter/material.dart';
 import 'package:betterfood_app_android/common/common.dart';
 import 'package:provider/provider.dart';
@@ -168,7 +169,7 @@ class IngredentsList extends StatelessWidget {
     required this.text,
   });
 
-  final Iterable<Ingredent>? ingredents;
+  final Iterable<Ingredent> ingredents;
   final String text;
 
   @override
@@ -182,8 +183,7 @@ class IngredentsList extends StatelessWidget {
           size: 15,
         ),
         const SizedBox(height: 10),
-        ...ingredents?.map((e) => UnorderedListItem(text: e.name)).toList() ??
-            [],
+        ...ingredents.map((e) => UnorderedListItem(text: e.name)).toList(),
       ],
     );
   }

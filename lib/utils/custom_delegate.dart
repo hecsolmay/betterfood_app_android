@@ -1,5 +1,6 @@
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
 import 'package:betterfood_app_android/dtos/response/productresponse.dart';
+import 'package:betterfood_app_android/pages/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,13 @@ class CustomDelegate extends SearchDelegate {
                   var product = products[index];
                   return GestureDetector(
                     onTap: () {
-                      print('detalles de ${product.id}');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetails(product: product),
+                        ),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
