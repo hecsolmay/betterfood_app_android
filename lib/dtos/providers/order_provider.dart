@@ -24,9 +24,21 @@ class OrdersProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeAll() {
+    products = [];
+    notifyListeners();
+  }
+
   void removeProduct(int index) {
     if (index >= 0 && index < products.length) {
       products.removeAt(index);
+      notifyListeners();
+    }
+  }
+
+  void updateQuantity(int index, int newQuantity) {
+    if (index >= 0 && index < products.length) {
+      products[index].quantity = newQuantity;
       notifyListeners();
     }
   }

@@ -32,3 +32,32 @@ class ErrorMessage extends StatelessWidget {
     );
   }
 }
+
+class EmptyShoppingCart extends StatelessWidget {
+  const EmptyShoppingCart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Icon(
+            Icons.remove_shopping_cart,
+            size: 200,
+          ),
+          Text(
+            'Aun no hay productos en el carrito',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+    );
+  }
+}

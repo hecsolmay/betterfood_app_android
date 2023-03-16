@@ -1,4 +1,5 @@
 import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
+import 'package:betterfood_app_android/widgets/error_message.dart';
 import 'package:betterfood_app_android/widgets/order_card.dart';
 import 'package:betterfood_app_android/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class Order extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ordersProvider = Provider.of<OrdersProvider>(context);
+    int total = 0;
     return Scaffold(
       appBar: AppBar(
         title: const Text("LISTA DE ORDENES"),
@@ -72,7 +74,10 @@ class Order extends StatelessWidget {
                     // icon:
                     actions: [
                       ElevatedButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          ordersProvider.removeAll();
+                          return Navigator.pop(context);
+                        },
                         child: const Text("SI"),
                       ),
                       ElevatedButton(
@@ -88,69 +93,86 @@ class Order extends StatelessWidget {
               icon: const Icon(Icons.delete))
         ],
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...ordersProvider.products.map((e) => const OrderCard())
-              ],
-              // [...List.generate(15, (index) => const OrderCard())],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0, 3),
-              blurRadius: 6,
-            ),
-          ],
-        ),
-        height: 100,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12, top: 5),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Total",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+      body: ordersProvider.products.isEmpty
+          ? const EmptyShoppingCart()
+          : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // ...ordersProvider.products.map((e) {
+                      //   total += e.product.price * e.quantity;
+                      //   return OrderCard(
+                      //     product: e,
+                      //   );
+                      // })
+                      ...ordersProvider.products.asMap().entries.map((e) {
+                        total += e.value.product.price * e.value.quantity;
+                        return OrderCard(
+                          product: e.value,
+                          index: e.key,
+                        );
+                      })
+                    ],
+                    // [...List.generate(15, (index) => const OrderCard())],
                   ),
-                  Text(
-                    "\$250",
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 26),
-                  )
+                ),
+              ),
+            ),
+      bottomNavigationBar: ordersProvider.products.isEmpty
+          ? const SizedBox.shrink()
+          : Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0, 3),
+                    blurRadius: 6,
+                  ),
                 ],
               ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              height: 100,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12, right: 12, top: 5),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Total",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 26),
+                        ),
+                        Text(
+                          "\$$total",
+                          style: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26),
+                        )
+                      ],
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    minimumSize: const Size(330, 50)),
-                child: const Text("Ordenar"),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.all(8.0),
+                          minimumSize: const Size(330, 50)),
+                      child: const Text("Ordenar"),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
