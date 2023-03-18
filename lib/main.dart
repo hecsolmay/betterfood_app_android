@@ -1,7 +1,7 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/customprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/mesa_provider.dart';
-import 'package:betterfood_app_android/dtos/providers/mesero_provider.dart';
+import 'package:betterfood_app_android/dtos/providers/register_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
 import 'package:betterfood_app_android/pages/login_mesa.dart';
@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CategoryProvider()),
         ChangeNotifierProvider(create: (_) => ProductsProvider()),
-        ChangeNotifierProvider(create: (_) => WaiterProvider()),
+        ChangeNotifierProvider(create: (_) => RegisterProvider()),
         ChangeNotifierProvider(create: (_) => OrdersProvider()),
-        ChangeNotifierProvider(create: (_) => TableProvider()),
+        // ChangeNotifierProvider(create: (_) => TableProvider()),
         ChangeNotifierProvider(create: (_) => CustomIngredentsProvider()),
       ],
       child: MaterialApp(

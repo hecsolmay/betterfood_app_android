@@ -1,4 +1,4 @@
-import 'package:betterfood_app_android/dtos/providers/mesero_provider.dart';
+import 'package:betterfood_app_android/dtos/providers/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
@@ -22,7 +22,7 @@ class _LoginMeseroState extends State<LoginMesero> {
 
   @override
   Widget build(BuildContext context) {
-    final waiterprovider = Provider.of<WaiterProvider>(
+    final waiterprovider = Provider.of<RegisterProvider>(
       context,
     );
     return Scaffold(
@@ -87,8 +87,8 @@ class _LoginMeseroState extends State<LoginMesero> {
                                 setState(() {
                                   qrMesero = cameraScanResult!;
                                 });
-                                 // Validar el ID del mesero
-                                 await waiterprovider.getByIdWaiter(qrMesero);
+                                // Validar el ID del mesero
+                                await waiterprovider.getByIdWaiter(qrMesero);
                                 if (waiterprovider.found) {
                                   Navigator.pushNamed(context, '/loginmesa');
                                 } else {

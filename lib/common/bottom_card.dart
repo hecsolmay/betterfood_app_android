@@ -89,7 +89,8 @@ class _BottomCardState extends State<BottomCard> {
                     product: widget.product,
                     extras: ingredentsProvider.extras,
                     remove: ingredentsProvider.remove,
-                    quantity: _counter);
+                    quantity: _counter,
+                    price: widget.product.price);
 
                 ordersProvider.addProduct(productAdd);
                 print(

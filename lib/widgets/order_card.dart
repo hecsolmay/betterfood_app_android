@@ -120,8 +120,10 @@ class OrderCard extends StatelessWidget {
           name: product.product.name,
           description: product.product.description,
           imageUrl: product.product.imgUrl,
-          price: product.product.price,
+          price: product.price,
           quantity: product.quantity,
+          extras: product.extras,
+          remove: product.remove,
         ),
       ),
     );
@@ -133,6 +135,8 @@ class RowContain extends StatefulWidget {
   final int index;
   final int quantity;
   final String name;
+  final List<String> extras;
+  final List<String> remove;
   final String description;
   final int price;
   final String imageUrl;
@@ -145,6 +149,8 @@ class RowContain extends StatefulWidget {
     required this.product,
     required this.quantity,
     required this.index,
+    required this.extras,
+    required this.remove,
   }) : super(key: key);
 
   @override
@@ -199,6 +205,22 @@ class _RowContainState extends State<RowContain> {
                   children: [
                     const SizedBox(height: 10),
                     BigText(text: widget.name),
+                    const SizedBox(height: 10),
+                    widget.extras.isNotEmpty || widget.remove.isNotEmpty
+                        ? Row(
+                            children: const [
+                              Icon(
+                                Icons.auto_awesome_sharp,
+                                color: Colors.amber,
+                              ),
+                              SizedBox(width: 7),
+                              Text(
+                                "Personalizado",
+                                style: TextStyle(color: Colors.indigo),
+                              ),
+                            ],
+                          )
+                        : const SizedBox(height: 10),
                     const SizedBox(height: 10),
                     Paragraph(text: widget.description, maxLines: 2),
                     const SizedBox(height: 15),

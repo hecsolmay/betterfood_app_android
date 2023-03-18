@@ -1,4 +1,5 @@
 import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
+import 'package:betterfood_app_android/dtos/request/order_request.dart';
 import 'package:betterfood_app_android/widgets/error_message.dart';
 import 'package:betterfood_app_android/widgets/order_card.dart';
 import 'package:betterfood_app_android/widgets/widgets.dart';
@@ -104,21 +105,16 @@ class Order extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // ...ordersProvider.products.map((e) {
-                      //   total += e.product.price * e.quantity;
-                      //   return OrderCard(
-                      //     product: e,
-                      //   );
-                      // })
                       ...ordersProvider.products.asMap().entries.map((e) {
-                        total += e.value.product.price * e.value.quantity;
+                        int price = e.value.price;
+
+                        total += price * e.value.quantity;
                         return OrderCard(
                           product: e.value,
                           index: e.key,
                         );
                       })
                     ],
-                    // [...List.generate(15, (index) => const OrderCard())],
                   ),
                 ),
               ),
@@ -160,7 +156,47 @@ class Order extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final orderProducts = ordersProvider.products
+                            .map((e) => ProductOrder(
+                                idProduct: e.product.id,
+                                extras: e.extras,
+                                remove: e.remove,
+                                quantity: e.quantity))
+                            .toList();
+
+                        await ordersProvider.postOrder(orderProducts);
+
+                        if (ordersProvider.hasError) {
+                          print("Ocurrio un error al mandar los datos");
+                        } else {
+                          print("Orden creada");
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Orden Creada'),
+                              content: const Padding(
+                                padding: EdgeInsets.only(
+                                    top: 15, bottom: 15, right: 10),
+                                child: Icon(
+                                  Icons.check,
+                                  size: 100,
+                                  color: Colors.green,
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    ordersProvider.removeAll();
+                                    return Navigator.pop(context);
+                                  },
+                                  child: const Text("Cerrar"),
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),

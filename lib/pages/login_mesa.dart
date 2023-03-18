@@ -1,5 +1,5 @@
 import 'package:betterfood_app_android/dtos/providers/mesa_provider.dart';
-import 'package:betterfood_app_android/dtos/providers/mesero_provider.dart';
+import 'package:betterfood_app_android/dtos/providers/register_provider.dart';
 import 'package:betterfood_app_android/dtos/response/mesero_response.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,7 @@ class _LoginMesaState extends State<LoginMesa> {
   void initState() {
     super.initState();
     // Obtener la instancia del provider en el initState
-    _waiter = Provider.of<WaiterProvider>(context, listen: false).waiter;
+    _waiter = Provider.of<RegisterProvider>(context, listen: false).waiter;
   }
 
   void scanQr() async {
@@ -32,7 +32,7 @@ class _LoginMesaState extends State<LoginMesa> {
 
   @override
   Widget build(BuildContext context) {
-    final tableprovider = Provider.of<TableProvider>(context);
+    final tableprovider = Provider.of<RegisterProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -103,12 +103,12 @@ class _LoginMesaState extends State<LoginMesa> {
                                 qrMesa = cameraScanResult!;
                               });
                               // Validar el ID del mesero
-                                 await tableprovider.getByIdTable(qrMesa);
-                                if (tableprovider.found) {
-                                  Navigator.pushNamed(context, '/home');
-                                } else {
-                                  AlertNotFound(context);
-                                }
+                              await tableprovider.getByIdTable(qrMesa);
+                              if (tableprovider.found) {
+                                Navigator.pushNamed(context, '/home');
+                              } else {
+                                AlertNotFound(context);
+                              }
                             },
                             icon: const Icon(
                               Icons.camera,

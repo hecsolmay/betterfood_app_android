@@ -17,14 +17,14 @@ class OrderRequestDto {
     required this.tableId,
   });
 
-  List<Product> products;
+  List<ProductOrder> products;
   String waiterId;
   String tableId;
 
   factory OrderRequestDto.fromJson(Map<String, dynamic> json) =>
       OrderRequestDto(
-        products: List<Product>.from(
-            json["products"].map((x) => Product.fromJson(x))),
+        products: List<ProductOrder>.from(
+            json["products"].map((x) => ProductOrder.fromJson(x))),
         waiterId: json["waiterId"],
         tableId: json["tableId"],
       );
@@ -36,8 +36,8 @@ class OrderRequestDto {
       };
 }
 
-class Product {
-  Product({
+class ProductOrder {
+  ProductOrder({
     required this.idProduct,
     required this.extras,
     required this.remove,
@@ -49,7 +49,7 @@ class Product {
   List<String> remove;
   int quantity;
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory ProductOrder.fromJson(Map<String, dynamic> json) => ProductOrder(
         idProduct: json["idProduct"],
         extras: List<String>.from(json["extras"].map((x) => x)),
         remove: List<String>.from(json["remove"].map((x) => x)),

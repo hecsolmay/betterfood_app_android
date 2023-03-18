@@ -1,5 +1,6 @@
 import 'package:betterfood_app_android/dtos/providers/categoryprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/mesa_provider.dart';
+import 'package:betterfood_app_android/dtos/providers/register_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
 import 'package:betterfood_app_android/widgets/buttons.dart';
 import 'package:betterfood_app_android/widgets/category_card.dart';
@@ -183,7 +184,7 @@ class TitleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final table = Provider.of<TableProvider>(context).table;
+    final table = Provider.of<RegisterProvider>(context).table;
     return Padding(
       padding: const EdgeInsets.only(left: 10.0),
       child: Column(

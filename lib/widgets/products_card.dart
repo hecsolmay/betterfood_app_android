@@ -149,7 +149,8 @@ class _RowContainState extends State<RowContain> {
                               product: widget.product,
                               extras: [],
                               remove: [],
-                              quantity: _counter);
+                              quantity: _counter,
+                              price: widget.product.price);
 
                           orderProvider.addProduct(productAdd);
                           print(

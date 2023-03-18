@@ -39,3 +39,17 @@ class CustomIngredentsProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class IngredentExtra {
+  IngredentExtra({
+    required this.id,
+    required this.name,
+    required this.required,
+    required this.extraPrice,
+  });
+
+  final String id;
+  final String name;
+  final bool required;
+  final int extraPrice;
+}
