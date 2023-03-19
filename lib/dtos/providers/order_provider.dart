@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:betterfood_app_android/common/globals.dart';
 import 'package:betterfood_app_android/core/entities/products.dart';
 import 'package:betterfood_app_android/dtos/request/order_request.dart';
+import 'package:betterfood_app_android/dtos/response/order_response.dart';
 import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -15,11 +16,16 @@ class OrdersProvider extends ChangeNotifier {
   final logger = Logger();
 
   List<Product> products = [];
+  OrderResponse? _order;
+
+  OrderResponse? get order => _order;
 
   Future<void> postOrder(List<ProductOrder> productsOrder) async {
     try {
       hasError = false;
+      isLoading = true;
       orderSend = false;
+      notifyListeners();
       final orderRequest = OrderRequestDto(
           products: productsOrder,
           waiterId: '63f804a8757fa73689a81958',
@@ -34,7 +40,10 @@ class OrdersProvider extends ChangeNotifier {
 
       if (response.statusCode == 201) {
         final json = jsonDecode(response.body);
+        final dynamic results = json['results'];
+        _order = OrderResponse.fromJson(results);
         logger.d(json);
+        logger.d(_order);
         orderSend = true;
       } else {
         hasError = true;
@@ -44,6 +53,7 @@ class OrdersProvider extends ChangeNotifier {
       logger.d(e);
       hasError = true;
     }
+    isLoading = false;
     notifyListeners();
   }
 

@@ -23,6 +23,14 @@ class RegisterProvider extends ChangeNotifier {
 
   TableResponseDto? get table => _table;
 
+  void cleanData() {
+    _found = false;
+    _waiter = null;
+    _foundTable = false;
+    _notificationSend = false;
+    _table = null;
+  }
+
   Future<void> getByIdTable(String id) async {
     try {
       final url = "${Globals.apiURL}/api/m/table/$id";

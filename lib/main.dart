@@ -6,6 +6,7 @@ import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
 import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
 import 'package:betterfood_app_android/pages/login_mesa.dart';
 import 'package:betterfood_app_android/pages/login_mesero.dart';
+import 'package:betterfood_app_android/pages/order_success.dart';
 import 'package:flutter/material.dart';
 import 'package:betterfood_app_android/pages/screens.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => const Login(),
           '/home': (context) => const Home(),
           '/order': (context) => const Order(),
+          '/orderResponse': (context) => const OrderResponse(),
           '/loginmesero': (context) => const LoginMesero(),
           '/loginmesa': (context) => const LoginMesa(),
           // '/categories': (context) => const Categories(),

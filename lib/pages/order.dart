@@ -156,7 +156,7 @@ class Order extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: () async {
+                      onPressed: () {
                         final orderProducts = ordersProvider.products
                             .map((e) => ProductOrder(
                                 idProduct: e.product.id,
@@ -165,37 +165,107 @@ class Order extends StatelessWidget {
                                 quantity: e.quantity))
                             .toList();
 
-                        await ordersProvider.postOrder(orderProducts);
-
-                        if (ordersProvider.hasError) {
-                          print("Ocurrio un error al mandar los datos");
-                        } else {
-                          print("Orden creada");
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Orden Creada'),
-                              content: const Padding(
-                                padding: EdgeInsets.only(
-                                    top: 15, bottom: 15, right: 10),
-                                child: Icon(
-                                  Icons.check,
-                                  size: 100,
-                                  color: Colors.green,
-                                ),
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 15, bottom: 15, right: 10),
+                              child: Icon(
+                                Icons.info_outline_rounded,
+                                size: 100,
+                                color: Colors.yellow.shade400,
                               ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    ordersProvider.removeAll();
-                                    return Navigator.pop(context);
-                                  },
-                                  child: const Text("Cerrar"),
-                                )
+                            ),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text(
+                                  "Enviar Orden",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 15),
+                                Text(
+                                  "¿Estas seguro de terminar tu orden?",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ],
                             ),
-                          );
-                        }
+                            actions: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      await ordersProvider
+                                          .postOrder(orderProducts);
+
+                                      if (ordersProvider.hasError) {
+                                        print(
+                                            "Ocurrio un error al mandar los datos");
+                                      } else {
+                                        // ignore: use_build_context_synchronously
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                            title: const Text('Orden Creada'),
+                                            content: const Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 15,
+                                                  bottom: 15,
+                                                  right: 10),
+                                              child: Icon(
+                                                Icons.check,
+                                                size: 100,
+                                                color: Colors.green,
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  ordersProvider.removeAll();
+                                                  Navigator
+                                                      .pushNamedAndRemoveUntil(
+                                                    context,
+                                                    '/orderResponse',
+                                                    (route) => false,
+                                                  );
+                                                },
+                                                child: const Text("Cerrar"),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                      minimumSize: const Size(90, 45),
+                                    ),
+                                    child: const Text("SI"),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.grey,
+                                      minimumSize: const Size(90, 45),
+                                    ),
+                                    child: const Text("No"),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
