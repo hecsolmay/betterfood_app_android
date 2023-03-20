@@ -146,8 +146,8 @@ class ShoppingCartButton extends StatelessWidget {
   }
 }
 
-class CloseSesionButton extends StatelessWidget {
-  const CloseSesionButton({super.key});
+class LogoutButton extends StatelessWidget {
+  const LogoutButton({super.key});
 
   @override
   Widget build(BuildContext context) {

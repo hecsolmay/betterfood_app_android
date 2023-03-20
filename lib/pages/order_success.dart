@@ -13,7 +13,7 @@ class OrderResponse extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pedido exitoso'),
-        actions: const [HelpButton(), CloseSesionButton()],
+        actions: const [HelpButton(), LogoutButton()],
       ),
       body: Center(
         child: SizedBox(

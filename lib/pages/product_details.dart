@@ -85,7 +85,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.pushNamed(context, '/order'),
                     icon: const Icon(Icons.shopping_cart_outlined))
               ],
             ),

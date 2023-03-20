@@ -89,7 +89,7 @@ class _CategoriesState extends State<Categories> with TickerProviderStateMixin {
         iconTheme: const IconThemeData(color: Colors.red),
         titleTextStyle: const TextStyle(color: Colors.black, fontSize: 20),
         backgroundColor: Colors.white,
-        actions: const [SearchButton(), HelpButton()],
+        actions: const [SearchButton(), HelpButton(), LogoutButton()],
         bottom: TabBar(
           physics: const BouncingScrollPhysics(),
           controller: _tabController,

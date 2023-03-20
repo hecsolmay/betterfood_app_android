@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color.fromARGB(255, 241, 241, 241),
         foregroundColor: Colors.red,
         shadowColor: Colors.black26,
-        actions: const [SearchButton(), HelpButton()],
+        actions: const [SearchButton(), HelpButton(), LogoutButton()],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) => SafeArea(

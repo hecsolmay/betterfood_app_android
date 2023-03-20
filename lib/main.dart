@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
           '/loginmesero': (context) => const LoginMesero(),
           '/loginmesa': (context) => const LoginMesa(),
           // '/categories': (context) => const Categories(),
-          '/order': (context) => const Order(),
         },
       ),
     );
