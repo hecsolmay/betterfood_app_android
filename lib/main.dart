@@ -31,7 +31,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Material App',
         theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color.fromRGBO(185, 0, 0, 0.826),
+          ),
+        ),
         initialRoute: '/home',
         routes: {
           '/login': (context) => const Login(),

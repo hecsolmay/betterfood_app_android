@@ -283,6 +283,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       quantity: _counter,
                       price: total);
 
+                  print(
+                      'products add ${productAdd.extras}  ${productAdd.remove}');
                   ordersProvider.addProduct(productAdd);
                   print(
                       'agregando el producto ${widget.product.id} la cantidad de $_counter');
