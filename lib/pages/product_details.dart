@@ -1,10 +1,9 @@
+import 'package:betterfood_app_android/common/common.dart';
 import 'package:betterfood_app_android/dtos/providers/customprovider.dart';
 import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
-import 'package:betterfood_app_android/dtos/providers/products_provider.dart';
 import 'package:betterfood_app_android/dtos/response/productresponse.dart';
 import 'package:betterfood_app_android/widgets/ingredents.dart';
 import 'package:flutter/material.dart';
-import 'package:betterfood_app_android/common/common.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
