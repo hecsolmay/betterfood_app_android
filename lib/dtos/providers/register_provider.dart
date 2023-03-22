@@ -75,7 +75,7 @@ class RegisterProvider extends ChangeNotifier {
     try {
       _notificationSend = false;
       final jsonBody = helpRequestToJson(request);
-      final url = "${Globals.apiURL}/api/notification/hel";
+      final url = "${Globals.apiURL}/api/notification/help";
       final response =
           await http.post(Uri.parse(url), body: jsonBody, headers: {
         "Content-Type": "application/json",
