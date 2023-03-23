@@ -28,8 +28,8 @@ class HelpButton extends StatelessWidget {
             ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Pedir Ayuda",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -37,10 +37,10 @@ class HelpButton extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Text(
-                  "¿Deseas Pedir ayuda al mesero Pepito Perez?",
-                  style: TextStyle(
+                  "¿Deseas Pedir ayuda al mesero ${request.waiter!.name} ${request.waiter!.lastName}?",
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                   textAlign: TextAlign.center,
@@ -54,8 +54,8 @@ class HelpButton extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () async {
                       final newHelp = HelpRequest(
-                          waiterId: '63f804a8757fa73689a81958',
-                          idTable: '63f8df91757fa73689a81a98');
+                          waiterId: request.waiter!.id,
+                          idTable: request.table!.id);
 
                       await request.postHelp(newHelp);
 

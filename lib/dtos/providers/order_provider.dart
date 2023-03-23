@@ -20,16 +20,15 @@ class OrdersProvider extends ChangeNotifier {
 
   OrderResponse? get order => _order;
 
-  Future<void> postOrder(List<ProductOrder> productsOrder) async {
+  Future<void> postOrder(
+      List<ProductOrder> productsOrder, String waiterId, String tableId) async {
     try {
       hasError = false;
       isLoading = true;
       orderSend = false;
       notifyListeners();
       final orderRequest = OrderRequestDto(
-          products: productsOrder,
-          waiterId: '63f804a8757fa73689a81958',
-          tableId: '63f8df91757fa73689a81a98');
+          products: productsOrder, waiterId: waiterId, tableId: tableId);
       final jsonBody = orderRequestDtoToJson(orderRequest);
       final url = "${Globals.apiURL}/api/order";
       final response =

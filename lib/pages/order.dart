@@ -1,4 +1,5 @@
 import 'package:betterfood_app_android/dtos/providers/order_provider.dart';
+import 'package:betterfood_app_android/dtos/providers/register_provider.dart';
 import 'package:betterfood_app_android/dtos/request/order_request.dart';
 import 'package:betterfood_app_android/widgets/error_message.dart';
 import 'package:betterfood_app_android/widgets/order_card.dart';
@@ -11,6 +12,9 @@ class Order extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ordersProvider = Provider.of<OrdersProvider>(context);
+    final registerProvider = Provider.of<RegisterProvider>(context);
+    final waiterId = registerProvider.waiter!.id;
+    final tableId = registerProvider.table!.id;
     int total = 0;
     return Scaffold(
       appBar: AppBar(
@@ -172,8 +176,8 @@ class Order extends StatelessWidget {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () async {
-                                      await ordersProvider
-                                          .postOrder(orderProducts);
+                                      await ordersProvider.postOrder(
+                                          orderProducts, waiterId, tableId);
 
                                       if (ordersProvider.hasError) {
                                         print(
