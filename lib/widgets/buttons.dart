@@ -1,6 +1,7 @@
 import 'package:betterfood_app_android/dtos/providers/register_provider.dart';
 import 'package:betterfood_app_android/dtos/request/help_request.dart';
 import 'package:betterfood_app_android/utils/custom_delegate.dart';
+import 'package:betterfood_app_android/utils/shared_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -190,9 +191,11 @@ class LogoutButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       Provider.of<RegisterProvider>(context, listen: false)
                           .cleanData();
+                      final sharedCache = SharedCache();
+                      await sharedCache.clearCache();
                       Navigator.pop(context);
                       Navigator.pushNamedAndRemoveUntil(
                         context,
