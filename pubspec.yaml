@@ -43,6 +43,8 @@ dependencies:
   provider: ^6.0.5
   logger: ^1.1.0
   qrscan: ^0.3.3
+  permission_handler: ^10.2.0
+  shared_preferences: ^2.0.20
   
 
 

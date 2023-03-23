@@ -31,6 +31,14 @@ class RegisterProvider extends ChangeNotifier {
     _table = null;
   }
 
+  void waiterFromCache(WaiterResponseDto? waiter) {
+    _waiter = waiter;
+  }
+
+  void tableFromCache(TableResponseDto? table) {
+    _table = table;
+  }
+
   Future<void> getByIdTable(String id) async {
     try {
       final url = "${Globals.apiURL}/api/m/table/$id";
