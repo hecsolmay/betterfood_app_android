@@ -106,6 +106,7 @@ class OrdersProvider extends ChangeNotifier {
     }
   }
 
+
   void updateQuantity(int index, int newQuantity) {
     if (index >= 0 && index < products.length) {
       products[index].quantity = newQuantity;

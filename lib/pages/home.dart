@@ -88,6 +88,9 @@ class _HomeState extends State<Home> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        const SectionText(
+                                            text: 'Nuestros Productos'),
+                                        const SizedBox(height: 15),
                                         CarouselSlider(
                                           items: productProvider.products
                                               .map((e) => CardSlider(
